@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="GROUP_BY_SEVERITY" value="true" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8fc5d6c3-14a9-46bb-879e-af2b8f18d47a" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/utilities">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ConcepteurDePanneau" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ConcepteurDePanneau" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ConcepteurDePanneau" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/temurin-16.0.2/lib/src.zip!/java.base/java/lang/System.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.jdks/temurin-16.0.2/lib/src.zip!/java.desktop/javax/swing/JButton.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/events/sign/signchange/SignInitiater.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/Renderer.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/DirectionalSign.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/Font.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignPropertyPane.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectId" id="2AkhvtNccRSBbDVkkSr6oIaOFL8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaVariableFindUsagesOptions.isSearchForAccessors&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/batik-1.16-src&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="fr.sarainfras.caillou15.app.events.sign.signcolorchange" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app" />
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app\src\main\resources\sign" />
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app\src\main\java\fr\sarainfras\caillou15\app\events\sign\signchanger" />
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app\src\main\java\fr\sarainfras\caillou15\app\events\sign\signidchange" />
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app\src\main\java\fr\sarainfras\caillou15\app\events\sign\signtypechange" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app\src\main\resources\fr\sarainfras\caillou15\app" />
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app\src\main\resources\fr\sarainfras\caillou15\" />
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app\src\main\resources" />
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app\src\main\resources\fr\sarainfras\caillou15\sign" />
+      <recent name="C:\Users\Utilisateur\Documents\ConcepteurDePanneau\app\src\main\resources\fr\sarainfras\caillou15" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="fr.sarainfras.caillou15.app.sign" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.ConcepteurDePanneau:app [run]">
+    <configuration name="Build &amp; Run" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="app:build app:run" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConcepteurDePanneau [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConcepteurDePanneau [customFatJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="customFatJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConcepteurDePanneau [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConcepteurDePanneau [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConcepteurDePanneau:app [build]" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConcepteurDePanneau:app [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConcepteurDePanneau:app [run]" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.Build &amp; Run" />
+      <item itemvalue="Gradle.ConcepteurDePanneau:app [build]" />
+      <item itemvalue="Gradle.ConcepteurDePanneau:app [run]" />
+      <item itemvalue="Gradle.ConcepteurDePanneau [shadowJar]" />
+      <item itemvalue="Gradle.ConcepteurDePanneau:app [clean]" />
+      <item itemvalue="Gradle.ConcepteurDePanneau [build]" />
+      <item itemvalue="Gradle.ConcepteurDePanneau [jar]" />
+      <item itemvalue="Gradle.ConcepteurDePanneau [customFatJar]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.ConcepteurDePanneau [customFatJar]" />
+        <item itemvalue="Gradle.ConcepteurDePanneau [shadowJar]" />
+        <item itemvalue="Gradle.ConcepteurDePanneau [jar]" />
+        <item itemvalue="Gradle.ConcepteurDePanneau [build]" />
+        <item itemvalue="Gradle.ConcepteurDePanneau:app [clean]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SliceToolwindowSettings">
+    <option name="autoScroll" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Utilisateur\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8fc5d6c3-14a9-46bb-879e-af2b8f18d47a" name="Changes" comment="" />
+      <created>1655559729946</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1655559729946</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint type="java-exception">
+          <dependency leave-enabled="true" master-id="2" />
+          <properties class="java.io.FileNotFoundException" package="java.io" />
+          <option name="timeStamp" value="40" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <dependency leave-enabled="true" master-id="2" />
+          <properties class="org.apache.batik.parser.ParseException" package="org.apache.batik.parser" />
+          <option name="timeStamp" value="62" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <dependency leave-enabled="true" master-id="2" />
+          <properties class="java.lang.IllegalStateException" package="java.lang" />
+          <option name="timeStamp" value="77" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <dependency leave-enabled="true" master-id="2" />
+          <properties class="java.lang.ClassCastException" package="java.lang" />
+          <option name="timeStamp" value="79" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <properties class="java.lang.StringIndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="105" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <properties class="java.lang.NumberFormatException" package="java.lang" />
+          <option name="timeStamp" value="152" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <properties class="java.util.ConcurrentModificationException" package="java.util" />
+          <option name="timeStamp" value="154" />
+        </breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$USER_HOME$/Downloads/batik-src-1.14/batik-1.14/batik-swing/src/main/java/org/apache/batik/swing/svg/JSVGComponent.java</url>
+          <line>587</line>
+          <properties class="org.apache.batik.swing.svg.JSVGComponent">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$USER_HOME$/Downloads/batik-src-1.14/batik-1.14/batik-dom/src/main/java/org/apache/batik/dom/util/SAXDocumentFactory.java</url>
+          <line>353</line>
+          <properties class="org.apache.batik.dom.util.SAXDocumentFactory">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <dependency leave-enabled="true" master-id="2" />
+          <url>jar://$USER_HOME$/.jdks/temurin-16.0.2/lib/src.zip!/java.base/java/io/FileInputStream.java</url>
+          <line>209</line>
+          <properties class="java.io.FileInputStream" method="open">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <dependency leave-enabled="true" master-id="2" />
+          <url>jar://$USER_HOME$/.jdks/temurin-16.0.2/lib/src.zip!/java.base/java/lang/Class.java</url>
+          <line>2845</line>
+          <properties class="java.lang.Class" method="getResource">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <dependency id="0" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/Renderer.java</url>
+          <line>70</line>
+          <properties class="fr.sarainfras.caillou15.app.render.Renderer">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$USER_HOME$/Downloads/batik-src-1.14/batik-1.14/batik-swing/src/main/java/org/apache/batik/swing/gvt/JGVTComponent.java</url>
+          <line>562</line>
+          <properties class="org.apache.batik.swing.gvt.JGVTComponent">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$USER_HOME$/Downloads/batik-1.15/batik-swing/src/main/java/org/apache/batik/swing/gvt/GVTTreeRenderer.java</url>
+          <line>99</line>
+          <properties class="org.apache.batik.swing.gvt.GVTTreeRenderer">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$USER_HOME$/Downloads/batik-1.15/batik-util/src/main/java/org/apache/batik/util/RunnableQueue.java</url>
+          <line>147</line>
+          <properties class="org.apache.batik.util.RunnableQueue">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$USER_HOME$/Downloads/batik-1.15/batik-swing/src/main/java/org/apache/batik/swing/gvt/JGVTComponent.java</url>
+          <line>562</line>
+          <properties class="org.apache.batik.swing.gvt.JGVTComponent">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$USER_HOME$/Downloads/batik-1.15/batik-swing/src/main/java/org/apache/batik/swing/gvt/JGVTComponent.java</url>
+          <line>708</line>
+          <properties class="org.apache.batik.swing.gvt.JGVTComponent">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="97" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://D:/batik-1.16-src/batik-gui-util/src/main/java/org/apache/batik/util/gui/JErrorPane.java</url>
+          <line>127</line>
+          <properties class="org.apache.batik.util.gui.JErrorPane" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="163" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://D:/batik-1.16-src/batik-bridge/src/main/java/org/apache/batik/bridge/BridgeUpdateHandler.java</url>
+          <line>63</line>
+          <properties class="org.apache.batik.bridge.BridgeUpdateHandler" method="handleAnimatedAttributeChanged">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="166" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/DirectionalSignGroup.java</url>
+          <line>80</line>
+          <properties class="fr.sarainfras.caillou15.app.signgroup.DirectionalSignGroup">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="273" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/DirectionalSignRenderer.java</url>
+          <line>58</line>
+          <properties class="fr.sarainfras.caillou15.app.render.DirectionalSignRenderer" method="renderPointeFleche">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="290" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$USER_HOME$/Downloads/batik-src-1.14/batik-1.14/batik-swing/src/main/java/org/apache/batik/swing/gvt/JGVTComponent.java</url>
+          <line>577</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$USER_HOME$/Downloads/batik-1.15/batik-swing/src/main/java/org/apache/batik/swing/svg/JSVGComponent.java</url>
+          <line>1984</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$USER_HOME$/Downloads/batik-1.15/batik-swing/src/main/java/org/apache/batik/swing/gvt/JGVTComponent.java</url>
+          <line>861</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$USER_HOME$/Downloads/batik-1.15/batik-swing/src/main/java/org/apache/batik/swing/gvt/JGVTComponent.java</url>
+          <line>577</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$USER_HOME$/Downloads/batik-1.15/batik-swing/src/main/java/org/apache/batik/swing/gvt/GVTTreeRenderer.java</url>
+          <line>122</line>
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="dir_sign.getLineNumber() == 2" language="JAVA" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/Renderer.java</url>
+          <line>619</line>
+          <option name="timeStamp" value="149" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://D:/batik-1.16-src/batik-bridge/src/main/java/org/apache/batik/bridge/BridgeContext.java</url>
+          <line>1770</line>
+          <option name="timeStamp" value="172" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="engine == null" language="JAVA" />
+          <url>file://D:/batik-1.16-src/batik-bridge/src/main/java/org/apache/batik/bridge/CSSUtilities.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="173" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://D:/batik-1.16-src/batik-swing/src/main/java/org/apache/batik/swing/svg/JSVGComponent.java</url>
+          <line>596</line>
+          <option name="timeStamp" value="182" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://D:/batik-1.16-src/batik-swing/src/main/java/org/apache/batik/swing/svg/JSVGComponent.java</url>
+          <line>617</line>
+          <option name="timeStamp" value="184" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="dir_sign.getSignSymbol().type != null &amp;&amp; dir_sign.getLineNumber() &gt; 1" language="JAVA" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/Renderer.java</url>
+          <line>633</line>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>jar://$USER_HOME$/.jdks/temurin-16.0.2/lib/src.zip!/java.desktop/javax/swing/BoxLayout.java</url>
+          <line>456</line>
+          <option name="timeStamp" value="205" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignPropertyPane.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="226" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://D:/batik-1.16-src/batik-anim/src/main/java/org/apache/batik/anim/dom/AbstractSVGAnimatedLength.java</url>
+          <line>140</line>
+          <option name="timeStamp" value="232" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://D:/batik-1.16-src/batik-bridge/src/main/java/org/apache/batik/bridge/SVGRectElementBridge.java</url>
+          <line>118</line>
+          <option name="timeStamp" value="233" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/app/lib/batik-all-1.16.jar!/org/apache/batik/bridge/DocumentLoader.class</url>
+          <line>52</line>
+          <option name="timeStamp" value="288" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/app/lib/batik-all-1.16.jar!/org/apache/batik/swing/svg/SVGDocumentLoader.class</url>
+          <line>48</line>
+          <option name="timeStamp" value="289" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/DirectionalSignRenderer.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="291" />
+        </line-breakpoint>
+        <line-breakpoint type="java-field">
+          <condition expression="height &gt;= 200" language="JAVA" />
+          <dependency master-id="0" />
+          <url>jar://$USER_HOME$/.jdks/temurin-16.0.2/lib/src.zip!/java.desktop/java/awt/Component.java</url>
+          <line>276</line>
+          <properties field="height" class="java.awt.Component" />
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="java-exception">
+          <condition expression="this instanceof java.lang.NullPointerException" language="JAVA" />
+          <dependency leave-enabled="true" master-id="1" />
+          <properties>
+            <option name="NOTIFY_CAUGHT" value="false" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.apache.batik.swing.JSVGCanvas" memberName="image" />
+        <PinnedItemInfo parentTag="fr.sarainfras.caillou15.app.AppWindow" memberName="Component.accessibleContext" />
+        <PinnedItemInfo parentTag="org.apache.batik.swing.JSVGCanvas" memberName="width" />
+        <PinnedItemInfo parentTag="org.apache.batik.swing.JSVGCanvas" memberName="height" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="GradleRunConfiguration">
+        <watch expression="dir_sign.with_distance" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ConcepteurDePanneau$ConcepteurDePanneau_app__run_.ic" NAME="ConcepteurDePanneau:app [run] Coverage Results" MODIFIED="1679334048567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

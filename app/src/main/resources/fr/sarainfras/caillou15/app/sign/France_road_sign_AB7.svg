@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 13.0.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="576px" height="576px" viewBox="-0.933 -0.933 576 576" enable-background="new -0.933 -0.933 576 576"
+	 xml:space="preserve">
+<defs>
+</defs>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="0.1764" stroke-linecap="round" stroke-linejoin="round" d="M270.101,7.116
+	L7.117,270.1c-4.5,4.5-7.028,10.603-7.028,16.967c0,6.364,2.528,12.467,7.028,16.967l262.984,262.984
+	c4.5,4.499,10.603,7.027,16.966,7.027c6.363,0,12.467-2.528,16.967-7.027l262.983-262.984c4.5-4.5,7.028-10.603,7.028-16.967
+	c0-6.364-2.528-12.467-7.028-16.967L304.034,7.116c-4.5-4.5-10.604-7.028-16.967-7.028C280.703,0.088,274.6,2.616,270.101,7.116z"/>
+<rect x="163.916" y="152.139" transform="matrix(0.7056 -0.7086 0.7086 0.7056 -122.3694 297.2804)" fill="#F6F623" width="265.348" height="287.543"/>
+<rect x="225.272" y="296.267" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 814.2354 337.2688)" fill="none" stroke="#FFFF00" stroke-width="0.1764" stroke-linecap="round" stroke-linejoin="round" width="223.99" height="82.002"/>
+<rect x="195.865" y="124.872" transform="matrix(0.7071 0.7071 -0.7071 0.7071 236.8668 -98.1132)" fill="none" stroke="#FFFF00" stroke-width="0.1764" stroke-linecap="round" stroke-linejoin="round" width="82.002" height="223.991"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M102.676,287.067
+	l184.391-184.391l70.987,70.987l43.538-43.538l-101.801-101.8c-3.375-3.375-7.952-5.271-12.725-5.271s-9.35,1.896-12.725,5.271
+	L28.325,274.342c-3.375,3.375-5.271,7.952-5.271,12.725s1.896,9.35,5.271,12.725l101.8,101.8l43.539-43.538L102.676,287.067z"/>
+<path fill="#FFFFFF" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M172.542,444.009
+	l43.538-43.538l70.987,70.987l184.391-184.391L400.47,216.08l43.539-43.538l101.8,101.8c3.375,3.375,5.271,7.952,5.271,12.725
+	s-1.896,9.35-5.271,12.725L299.792,545.809c-3.375,3.375-7.952,5.271-12.725,5.271s-9.35-1.896-12.725-5.271L172.542,444.009z"/>
+<rect x="94.123" y="256.257" transform="matrix(0.7056 -0.7086 0.7086 0.7056 -118.6342 288.2612)" width="386.957" height="61.296"/>
+</svg>

@@ -1,0 +1,35 @@
+import java.util.function.Consumer
+
+/*tasks.register('uberJar', Jar) {
+    archiveClassifier = 'uber'
+
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
+}*/
+
+/*task uberJar(type: Jar, dependsOn: subprojects.tasks["build"]) {
+    subprojects.each { project ->
+        from project.configurations.archives.allArtifacts.files.collect { zipTree(it) }
+    }
+
+    manifest {
+        attributes 'Main-Class': 'app:fr.sarainfras.caillou15.app.App'
+    }
+}*/
+
+/*subprojects.each { subproject -> evaluationDependsOn(subproject.path)}
+task allJar( type: Jar, dependsOn: subprojects.tasks["build"] ) {
+    baseName = 'allJar'
+    subprojects.each { subproject ->
+        from subproject.configurations.archives.allArtifacts.files.collect {
+            zipTree(it)
+        }
+    }
+}
+artifacts {
+    archives allJar
+}*/

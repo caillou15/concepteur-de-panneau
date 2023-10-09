@@ -1,0 +1,10 @@
+v1.0.0 : version initiale - buggée
+v1.1.0 :
+- ajout de l'emplacement des idéogrammes, dessinés en un carré de la couleur du texte
+- ajout d'une boite A propos de... affichant la version du logiciel
+v1.2.0 :
+- ajout des symboles type indication (carré bleu)
+        et type interdiction (rond blanc avec listel rouge)
+- amélioration des idéogrammes (avec la direction LEFT ça faisais n'importe quoi)
+        et mise en creux du carré
+- correction de la positon des distances pour la direction LEFT
