@@ -27,6 +27,9 @@ public class SignPropertyPane extends JPanel {
     JPanel label_panel;
     JPanel property_panel;
 
+    JPanel grid_label_and_property_panel;
+    int property_index = 0;
+
     // composants de propriétés
     JComboBox<String> comboBoxType;
     JComboBox<String> comboBoxID;
@@ -55,6 +58,9 @@ public class SignPropertyPane extends JPanel {
     }
 
     private void init_gui() {
+        grid_label_and_property_panel = new JPanel();
+        grid_label_and_property_panel.setLayout(new GridBagLayout());
+
         label_panel = new JPanel();
         label_panel.setLayout(new BoxLayout(label_panel, BoxLayout.Y_AXIS));
         label_panel.add(Box.createVerticalStrut(3));
@@ -63,8 +69,9 @@ public class SignPropertyPane extends JPanel {
         gridLayout.setVgap(4);
         property_panel.setLayout(gridLayout);
         boxLayout = new BoxLayout(this, BoxLayout.X_AXIS);
-        this.add(label_panel);
-        this.add(property_panel);
+        //this.add(label_panel);
+        //this.add(property_panel);
+        this.add(grid_label_and_property_panel);
         init_combo_type();
     }
 
@@ -72,7 +79,7 @@ public class SignPropertyPane extends JPanel {
         String[] signTypeArray = getNames(Sign.SignType.class);
         signTypeArray = Utils.addElementAtFirstinStringArray(signTypeArray);
         comboBoxType = new JComboBox<>(signTypeArray);
-        this.add(comboBoxType, "type");
+        this.add(comboBoxType, "type", property_index);
         if (!newSign) {
             comboBoxType.setSelectedItem(sign.getType().name());
             comboBoxType.setEnabled(false);
@@ -120,7 +127,7 @@ public class SignPropertyPane extends JPanel {
                 });
             }
         }
-        this.add(comboBoxID, "ID");
+        this.add(comboBoxID, "ID", property_index);
         this.isIDShown = true;
         init_properties();
     }
@@ -134,7 +141,7 @@ public class SignPropertyPane extends JPanel {
 
         componentArray.forEach((name, component) -> {
             component.setSize(component.getPreferredSize());
-            this.add(component, name);
+            this.add(component, name, property_index);
         });
         editorUI.getSplitPane().setDividerLocation(editorUI.getSplitPane().getMinimumDividerLocation());
         editorUI.getSplitPane().getRightComponent().revalidate();
@@ -145,17 +152,31 @@ public class SignPropertyPane extends JPanel {
 
     }
 
-    public Component add(JComponent component, String name) {
+    public Component add(JComponent component, String name, int pos) {
         if (!(component instanceof JTextArea || component instanceof JSpinner)) component.setMaximumSize(component.getMinimumSize());
         component.setAlignmentX(CENTER_ALIGNMENT);
         JLabel jLabel = new JLabel(name);
-        jLabel.setBorder(new EmptyBorder(6, 0, 6, 0));
+        //jLabel.setBorder(new EmptyBorder(6, 0, 6, 0));
         label_panel.add(jLabel);
         label_panel.add(Box.createVerticalStrut(2));
-        Component result = property_panel.add(component);
-        component.setSize(component.getMaximumSize());
-        this.setSize(getWidth()+20, getHeight());
+        GridBagConstraints label_constraints = new GridBagConstraints();
+        label_constraints.gridx = 0;
+        label_constraints.gridy = pos;
+        label_constraints.anchor = GridBagConstraints.LINE_START;
+        label_constraints.insets = new Insets(0, 0, 0, 5);
+        grid_label_and_property_panel.add(jLabel, label_constraints);
+        GridBagConstraints comp_constraints = new GridBagConstraints();
+        comp_constraints.gridx = 1;
+        comp_constraints.gridy = pos;
+        comp_constraints.anchor = GridBagConstraints.LINE_START;
+        comp_constraints.insets = new Insets(0, 0, 3, 0);
+        comp_constraints.fill = GridBagConstraints.BOTH;
+        grid_label_and_property_panel.add(component, comp_constraints);
+        //Component result = property_panel.add(component);
+        //component.setSize(component.getMaximumSize());
+        //this.setSize(getWidth()+20, getHeight());
 
-        return result;
+        property_index++;
+        return null/*result*/;
     }
 }

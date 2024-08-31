@@ -24,6 +24,8 @@ public class SignGroupPropertyPane extends JPanel implements SignGroupChangeList
 
     ArrayList<String> signNameArrayList;
     JList<String> signList;
+    JList<String> cartoucheList;
+    ArrayList<String> cartoucheRefArrayList;
 
     BoxLayout boxLayout;
 
@@ -32,6 +34,7 @@ public class SignGroupPropertyPane extends JPanel implements SignGroupChangeList
         this.mainframe = frame;
         this.directionalSignGroup = directionalSignGroup;
         signNameArrayList = new ArrayList<>();
+        cartoucheRefArrayList = new ArrayList<>();
         this.signGroupUI = signGroupUI;
         this.signGroupChangeInitiater = signGroupChangeInitiater;
         init();
@@ -46,31 +49,19 @@ public class SignGroupPropertyPane extends JPanel implements SignGroupChangeList
         boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(boxLayout);
         // propriétés du groupe de panneaux
+
         // boutons de cartouche
         JPanel cartouches_bouton_panel = new JPanel();
         cartouches_bouton_panel.setLayout(new BoxLayout(cartouches_bouton_panel, BoxLayout.X_AXIS));
-        JButton bouton_cartouche_1 = new JButton(" 1 ");
-        bouton_cartouche_1.setMargin(new Insets(
-                bouton_cartouche_1.getMargin().top, 3,
-                bouton_cartouche_1.getMargin().bottom, 3
-        ));
-        bouton_cartouche_1.setSize(bouton_cartouche_1.getMinimumSize());
-        bouton_cartouche_1.setEnabled(false);
-        JButton bouton_cartouche_2 = new JButton(" 2 ");
-        bouton_cartouche_2.setMargin(new Insets(
-                bouton_cartouche_2.getMargin().top, 3,
-                bouton_cartouche_2.getMargin().bottom, 3
-        ));
-        bouton_cartouche_2.setEnabled(false);
+        init_cartouche_list();
         JLabel label_cartouche = new JLabel("cartouche");
         label_cartouche.setBorder(new EmptyBorder(0, 5, 0, 5));
         cartouches_bouton_panel.add(label_cartouche);
-        cartouches_bouton_panel.add(bouton_cartouche_1);
-        cartouches_bouton_panel.add(bouton_cartouche_2);
         cartouches_bouton_panel.setMaximumSize(
                 new Dimension(120, 20));
         cartouches_bouton_panel.setPreferredSize(new Dimension(100, 20));
         this.add(cartouches_bouton_panel);
+        this.add(init_cartouche_list_control_panel());
         // case à cocher - alignement des panneaux
         JCheckBox alignement_checkbox = new JCheckBox("Alignement longueur");
         alignement_checkbox.addItemListener(e -> {
@@ -87,44 +78,7 @@ public class SignGroupPropertyPane extends JPanel implements SignGroupChangeList
         // liste de panneaux
         init_sign_list();
         // boutons de contrôle de la liste
-        JPanel sign_list_control_panel = new JPanel();
-        sign_list_control_panel.setLayout(new GridLayout(1, 0));
-        sign_list_control_panel.setMaximumSize(
-                new Dimension(110, 20));
-        sign_list_control_panel.setPreferredSize(
-                new Dimension(signList.getWidth(), 20));
-        JButton bouton_ajouter = new JButton("+");
-        bouton_ajouter.setMargin(new Insets(bouton_ajouter.getMargin().top, 3,
-                bouton_ajouter.getMargin().bottom, 3));
-        bouton_ajouter.addActionListener(e -> {
-            signNameArrayList.add("VILLE");
-            directionalSignGroup.directionalSignArrayList.add(new DirectionalSign("VILLE", Sign.SignID.D21));
-            update_sign_list();
-        });
-        JButton bouton_suppr = new JButton("-");
-        bouton_suppr.setMargin(new Insets(bouton_suppr.getMargin().top, 3, bouton_suppr.getMargin().bottom, 3));
-        bouton_suppr.addActionListener(e -> {
-            if (signList.getSelectedIndex() > -1) {
-                signNameArrayList.remove(signList.getSelectedIndex());
-                directionalSignGroup.directionalSignArrayList.remove(signList.getSelectedIndex());
-                update_sign_list();
-            }
-        });
-        JButton bouton_edit = new JButton("Edit");
-        bouton_edit.setMargin(new Insets(bouton_edit.getMargin().top, 3, bouton_edit.getMargin().bottom, 3));
-        bouton_edit.addActionListener(e -> {
-            if (signList.getSelectedIndex() >= 0) {
-                SignEditorDialog signEditorDialog;
-                signEditorDialog = new SignEditorDialog(mainframe,
-                        directionalSignGroup.directionalSignArrayList.get(signList.getSelectedIndex()),
-                        signGroupUI.getSignGroupChangeInitiater());
-                signEditorDialog.setVisible(true);
-            }
-        });
-        sign_list_control_panel.add(bouton_ajouter);
-        sign_list_control_panel.add(bouton_suppr);
-        sign_list_control_panel.add(bouton_edit);
-        this.add(sign_list_control_panel);
+        this.add(init_sign_list_control_panel());
 
         signGroupUI.getSplitPane().setMinimumSize(signGroupUI.getSplitPane().getMinimumSize());
         signGroupUI.getSplitPane().setDividerLocation(signGroupUI.getSplitPane().getMinimumDividerLocation());
@@ -146,18 +100,131 @@ public class SignGroupPropertyPane extends JPanel implements SignGroupChangeList
         this.add(panel);
     }
 
-    public void update_sign_list_ui() {
+    public void update_sign_list() {
+        signNameArrayList.clear();
+        signNameArrayList.addAll(directionalSignGroup.directionalSignArrayList.stream().map(Object::toString).toList());
         DefaultListModel<String> listModel = new DefaultListModel<>();
         listModel.addAll(signNameArrayList);
         signList.setModel(listModel);
     }
 
-    public void update_sign_list() {
-        signNameArrayList.clear();
-        signNameArrayList.addAll(directionalSignGroup.directionalSignArrayList.stream().map(sign -> sign.getText()[0]).toList());
+    public JPanel init_sign_list_control_panel() {
+        JPanel sign_list_control_panel = new JPanel();
+        sign_list_control_panel.setLayout(new GridLayout(1, 0));
+        sign_list_control_panel.setMaximumSize(
+                new Dimension(110, 20));
+        sign_list_control_panel.setPreferredSize(
+                new Dimension(signList.getWidth(), 20));
+        JButton bouton_ajouter_sign = new JButton("+");
+        bouton_ajouter_sign.setMargin(new Insets(bouton_ajouter_sign.getMargin().top, 3,
+                bouton_ajouter_sign.getMargin().bottom, 3));
+        bouton_ajouter_sign.addActionListener(e -> {
+            signNameArrayList.add("VILLE");
+            DirectionalSign dir_sign = new DirectionalSign(Sign.SignID.D21);
+            dir_sign.computeLengths();
+            directionalSignGroup.directionalSignArrayList.add(dir_sign);
+            update_sign_list();
+            signGroupUI.getSignGroupChangeInitiater().signGroupUpdate();
+        });
+        JButton bouton_suppr_sign = new JButton("-");
+        bouton_suppr_sign.setMargin(new Insets(bouton_suppr_sign.getMargin().top, 3, bouton_suppr_sign.getMargin().bottom, 3));
+        bouton_suppr_sign.addActionListener(e -> {
+            if (signList.getSelectedIndex() > -1) {
+                signNameArrayList.remove(signList.getSelectedIndex());
+                directionalSignGroup.directionalSignArrayList.remove(signList.getSelectedIndex());
+                update_sign_list();
+                signGroupUI.getSignGroupChangeInitiater().signGroupUpdate();
+                directionalSignGroup.directionalSignArrayList.forEach(sign -> {if (!sign.isComputed()) sign.computeLengths();});
+            }
+        });
+        JButton bouton_edit_sign = new JButton("Edit");
+        bouton_edit_sign.setMargin(new Insets(bouton_edit_sign.getMargin().top, 3, bouton_edit_sign.getMargin().bottom, 3));
+        bouton_edit_sign.addActionListener(e -> {
+            if (signList.getSelectedIndex() >= 0) {
+                SignEditorDialog signEditorDialog;
+                signEditorDialog = new SignEditorDialog(mainframe,
+                        directionalSignGroup.directionalSignArrayList.get(signList.getSelectedIndex()),
+                        signGroupUI.getSignGroupChangeInitiater());
+                signEditorDialog.setVisible(true);
+            }
+        });
+        sign_list_control_panel.add(bouton_ajouter_sign);
+        sign_list_control_panel.add(bouton_suppr_sign);
+        sign_list_control_panel.add(bouton_edit_sign);
+        return sign_list_control_panel;
+    }
+
+    public void init_cartouche_list() {
+        directionalSignGroup.cartoucheArrayList.forEach(cartouche -> cartoucheRefArrayList.add(cartouche.toString()));
         DefaultListModel<String> listModel = new DefaultListModel<>();
-        listModel.addAll(signNameArrayList);
-        signList.setModel(listModel);
+        cartoucheList = new JList<>(listModel);
+        cartoucheList.setLayoutOrientation(JList.VERTICAL);
+        cartoucheList.setVisibleRowCount(6);
+        cartoucheList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        cartoucheList.setFixedCellWidth(100);
+        int cellHeight = 20;
+        cartoucheList.setFixedCellHeight(cellHeight);
+        cartoucheList.setMinimumSize(new Dimension(cartoucheList.getFixedCellWidth(), cellHeight * 6));
+        JPanel panel = new JPanel();
+        panel.add(cartoucheList);
+        this.add(panel);
+    }
+
+    public void update_cartouche_list() {
+        cartoucheRefArrayList.clear();
+        cartoucheRefArrayList.addAll(directionalSignGroup.cartoucheArrayList.stream().map(Object::toString).toList());
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        listModel.addAll(cartoucheRefArrayList);
+        cartoucheList.setModel(listModel);
+    }
+
+    public JPanel init_cartouche_list_control_panel() {
+        JPanel cartouche_list_control_panel = new JPanel();
+        cartouche_list_control_panel.setLayout(new GridLayout(1, 0));
+        cartouche_list_control_panel.setMaximumSize(
+                new Dimension(110, 20));
+        cartouche_list_control_panel.setPreferredSize(
+                new Dimension(cartoucheList.getWidth(), 20));
+        JButton bouton_ajouter_cartouche = new JButton("+");
+        bouton_ajouter_cartouche.setMargin(new Insets(bouton_ajouter_cartouche.getMargin().top, 3,
+                bouton_ajouter_cartouche.getMargin().bottom, 3));
+        bouton_ajouter_cartouche.addActionListener(e -> {
+            if (directionalSignGroup.getSignList().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Pour pouvoir ajouter un cartouche, il faut avoir aumoins un panneau.");
+                return;
+            }
+            cartoucheRefArrayList.add("D 1");
+            Cartouche cartouche = new Cartouche(Cartouche.CartoucheType.D, 1);
+            cartouche.computeLengths();
+            directionalSignGroup.cartoucheArrayList.add(cartouche);
+            update_cartouche_list();
+            signGroupUI.getSignGroupChangeInitiater().signGroupUpdate();
+        });
+        JButton bouton_suppr_cartouche = new JButton("-");
+        bouton_suppr_cartouche.setMargin(new Insets(bouton_suppr_cartouche.getMargin().top, 3, bouton_suppr_cartouche.getMargin().bottom, 3));
+        bouton_suppr_cartouche.addActionListener(e -> {
+            if (cartoucheList.getSelectedIndex() > -1) {
+                cartoucheRefArrayList.remove(cartoucheList.getSelectedIndex());
+                directionalSignGroup.cartoucheArrayList.remove(cartoucheList.getSelectedIndex());
+                update_cartouche_list();
+                signGroupUI.getSignGroupChangeInitiater().signGroupUpdate();
+                directionalSignGroup.cartoucheArrayList.forEach(cartouche -> {if (!cartouche.isComputed()) cartouche.computeLengths();});
+            }
+        });
+        JButton bouton_edit_cartouche = new JButton("Edit");
+        bouton_edit_cartouche.setMargin(new Insets(bouton_edit_cartouche.getMargin().top, 3, bouton_edit_cartouche.getMargin().bottom, 3));
+        bouton_edit_cartouche.addActionListener(e -> {
+            if (cartoucheList.getSelectedIndex() >= 0) {
+                CartoucheEditorDialog cartoucheEditorDialog;
+                cartoucheEditorDialog = new CartoucheEditorDialog(directionalSignGroup, cartoucheList.getSelectedIndex(),
+                        signGroupUI.getSignGroupChangeInitiater());
+                update_cartouche_list();
+            }
+        });
+        cartouche_list_control_panel.add(bouton_ajouter_cartouche);
+        cartouche_list_control_panel.add(bouton_suppr_cartouche);
+        cartouche_list_control_panel.add(bouton_edit_cartouche);
+        return cartouche_list_control_panel;
     }
 
     public Component add(JComponent component) {

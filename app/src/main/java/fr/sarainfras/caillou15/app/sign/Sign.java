@@ -1,5 +1,4 @@
 package fr.sarainfras.caillou15.app.sign;
-
 import fr.sarainfras.caillou15.app.events.sign.SignInitiater;
 
 import javax.swing.*;

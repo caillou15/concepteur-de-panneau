@@ -6,8 +6,9 @@ import fr.sarainfras.caillou15.app.events.sign.SignInitiater;
 import org.apache.commons.lang3.NotImplementedException;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
@@ -15,17 +16,16 @@ import static fr.sarainfras.caillou15.app.sign.Font.SignFont.*;
 
 public class DirectionalSign extends Sign {
 
-    private String[] text;
+    private ArrayList<Mention> mentions;
     private Font.SignFont font = L1serre;
-    private int lineNumber;
+    private int lineNumber = 1;
     private int numero_gamme = 0;
     boolean with_symbol = false;
     private DirectionalSignDirection signDirection;
     private double longueur_supplementaire = 0;
-    private double[] distances_directions;
     private boolean with_distance = false;
-    private final SignIdeogram signIdeogram;
-    private final SignSymbol signSymbol;
+    private boolean with_ideogram = false;
+    private SignSymbol signSymbol;
 
     public static final int[] gammes = {100, 125, 160, 200};
 
@@ -40,39 +40,21 @@ public class DirectionalSign extends Sign {
     private double hauteur = 0;
     int hauteur_texte = 0;
     private int largeur_listel = 20;
+    boolean isLong = false;
+
 
     public DirectionalSign() {
-        this("EXEMPLE");
+        this(SignID.D21);
     }
 
-    public DirectionalSign(String text, SignID signID) {
-        this(text);
+    public DirectionalSign(Sign.SignID signID) {
         this.setSignID(signID);
-    }
-
-    public DirectionalSign(String text) {
-        this(new String[]{text}, 1, new double[]{});
-    }
-
-    public DirectionalSign(String text, double distance) {
-        this(new String[]{text}, 1, new double[]{distance});
-    }
-
-    public DirectionalSign(String[] texts, int lineNumber, double[] distaces){
         this.setType(SignType.DIRECTIONAL);
-        this.text = texts;
-        this.lineNumber = lineNumber;
-        this.propertiesNameArray = new String[]{"text"};
+        this.mentions = new ArrayList<>();
+        this.mentions.add(new Mention());
         this.color = DirectionalSignColor.WHITE;
-        this.distances_directions = distaces;
-        this.signIdeogram = new SignIdeogram();
         this.signSymbol = new SignSymbol();
-        try {
-            setSignDirection(DirectionalSignDirection.RIGHT);
-        } catch (SignException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), e.getMessage());
-        }
+        this.signDirection = DirectionalSignDirection.RIGHT;
     }
 
     @Override
@@ -88,32 +70,16 @@ public class DirectionalSign extends Sign {
         return getPropertiesGUIComponents(signInitiater, false);
     }
 
-    public LinkedHashMap<String, JComponent> getPropertiesGUIComponents(SignInitiater signInitiater, boolean new_sign) {
+    public LinkedHashMap<String, JComponent>
+    getPropertiesGUIComponents(SignInitiater signInitiater, boolean new_sign) {
 
         DirectionalSign this_sign = this;
         LinkedHashMap<String, JComponent> componentsArray = new LinkedHashMap<>();
-        // texte
-        JTextArea texte_textArea = new JTextArea("nom ville");
-        if (!new_sign) texte_textArea.setText(Utils.monoLineText(this.getText()));
-        texte_textArea.setMaximumSize(texte_textArea.getSize());
-        texte_textArea.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                switch (this_sign.getFont()) {
-                    case L1serre, L2serre ->
-                            this_sign.text = (Character.isAlphabetic(e.getKeyChar()) ?
-                                    texte_textArea.getText()+e.getKeyChar() : texte_textArea.getText()).toUpperCase(Locale.ROOT).split("\n");
-                    case L4 ->
-                            this_sign.text = (Character.isAlphabetic(e.getKeyChar()) ?
-                                    texte_textArea.getText()+e.getKeyChar() : texte_textArea.getText()).split("\n");
-                }
-
-                signInitiater.signSet(this_sign, false);
-            }
+        // bouton éditeur de mentions
+        JButton mention_editor_button = new JButton("Editeur de mentions...");
+        mention_editor_button.addActionListener(e -> {
+            MentionEditorDialog dialog = new MentionEditorDialog(this, signInitiater);
         });
-        JScrollPane textScrollPane = new JScrollPane(texte_textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED , ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        textScrollPane.setMaximumSize(new Dimension(texte_textArea.getSize().width + 5, texte_textArea.getSize().height));
-        textScrollPane.setPreferredSize(new Dimension(texte_textArea.getSize().width + 5, texte_textArea.getSize().height));
         // couleur
         String[] signColorArray = Utils.getNames(DirectionalSignColor.class);
         signColorArray = Utils.addElementAtFirstinStringArray(signColorArray);
@@ -158,63 +124,15 @@ public class DirectionalSign extends Sign {
         }
         // activation distances
         JCheckBox distances_checkBox = new JCheckBox();
-        distances_checkBox.addItemListener(e -> this_sign.setWith_distance(!this_sign.isWith_distance()));
+        distances_checkBox.addItemListener(e -> {
+            this_sign.setWith_distance(!this_sign.isWith_distance());
+            if (distances_checkBox.isSelected()!=this.with_distance)
+                distances_checkBox.setSelected(this.with_distance);
+            signInitiater.signSet(this_sign, false);
+        });
         if (!new_sign) {
             distances_checkBox.setSelected(this.with_distance);
         }
-        // distances indiquées
-        JTextArea distances_textArea = new JTextArea("");
-        distances_textArea.setMaximumSize(distances_textArea.getSize());
-        distances_textArea.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (Character.isDigit(e.getKeyChar()) || Character.isAlphabetic(e.getKeyChar())) {
-                    DirectionalSign this_dir_sign = this_sign;
-                    String[] stringArray = (Character.isAlphabetic(e.getKeyChar()) ||
-                            Character.isDigit(e.getKeyChar())
-                            ? distances_textArea.getText()+e.getKeyChar() : distances_textArea.getText()).split("\n");
-                    int nb = 0;
-                    double[] distances = new double[0];
-                    if (stringArray.length != 0) {
-                        nb = stringArray.length;
-                        distances = new double[nb];
-                        for (int i = 0; i < nb; i ++) {
-                            try {
-                                distances[i] = Double.parseDouble(stringArray[i]);
-                            } catch (NumberFormatException numberFormatException) {
-                                numberFormatException.printStackTrace();
-                                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "les distances ne doivent contenir que des chiffres");
-                            }
-                        }
-                    }
-
-                    this_dir_sign.distances_directions = distances;
-
-                    if (nb == this_dir_sign.getLineNumber() && this_dir_sign.isWith_distance()) signInitiater.signSet(this_dir_sign, false);
-                    else if (this_dir_sign.isWith_distance()) JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
-                            "le nombre de distances ne corrspond pas au nombre de lignes");
-                }
-
-            }
-        });
-        if (!new_sign && with_distance) {
-            for (int i = 0; i < distances_directions.length; i++) {
-                if (i == distances_directions.length - 1) {
-                    distances_textArea.append(String.valueOf(distances_directions[i]));
-                }
-                distances_textArea.append(String.valueOf(distances_directions[i]) + "\n");
-            }
-        }
-        JScrollPane distancesScrollPane = new JScrollPane(distances_textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED , ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        distancesScrollPane.setMaximumSize(new Dimension(distances_textArea.getSize().width + 5, distances_textArea.getSize().height));
-        distancesScrollPane.setPreferredSize(new Dimension(distances_textArea.getSize().width + 5, distances_textArea.getSize().height));
-        // ideogramme
-        String[] signIdeogramArray = Utils.getNames(SignIdeogram.SignIdeogramType.class);
-        JComboBox<String> ideogram_jComboBox = new JComboBox<>(signIdeogramArray);
-        ideogram_jComboBox.addActionListener(e -> {
-            getSignIdeogram().type = SignIdeogram.SignIdeogramType.values()[ideogram_jComboBox.getSelectedIndex()];
-            signInitiater.signSet(this_sign, false);
-        });
         // symbole
         String[] signSymbolArray = Utils.getNames(SignSymbol.SignSymbolType.class);
         JComboBox<String> symbol_jComboBox = new JComboBox<>(signSymbolArray);
@@ -223,33 +141,29 @@ public class DirectionalSign extends Sign {
             signInitiater.signSet(this_sign, false);
         });
         // retour
-        componentsArray.put("texte", textScrollPane);
+        componentsArray.put("mentions", mention_editor_button);
         componentsArray.put("couleur", color_jComboBox);
         componentsArray.put("direction", direction_jComboBox);
         componentsArray.put("long. supp.", long_supp_spinner);
         componentsArray.put("distances ?", distances_checkBox);
-        componentsArray.put("distances", distancesScrollPane);
-        componentsArray.put("idéogramme", ideogram_jComboBox);
         componentsArray.put("symbole", symbol_jComboBox);
         return componentsArray;
     }
 
     public void computeLengths() throws NotImplementedException {
         switch (getSignID()) {
-            case D21 -> computeLengths_D21();
-            case D29 -> throw new NotImplementedException();
-            default -> throw new IllegalStateException("ID de panneau annormal");
+            case D21 -> computeLenghts_D21_new();
+            default -> throw new NotImplementedException();
         }
         width = longueur;
         computed = true;
     }
 
-    public void computeLengths_D21() throws NotImplementedException {
-        lineNumber = text.length;
+    public void computeLenghts_D21_new() throws NotImplementedException {
+        lineNumber = mentions.size();
         if (lineNumber == 0 || lineNumber > 4)
             JOptionPane.showMessageDialog(null, "le nombre de ligne est incorrect ou supérieur à 4");
         else {
-            boolean isLong;
             hauteur_base = gammes[getNumero_gamme()];
             longueur_texte = 0;
             longueur = 0;
@@ -260,20 +174,22 @@ public class DirectionalSign extends Sign {
                 case BLUE, GREEN, BROWN, BLACK, RED -> hauteur_composition = gammes[numero_gamme+1];
                 case WHITE, YELLOW -> hauteur_composition = gammes[numero_gamme];
             }
-            for (int i = 0; i < text.length; i++) {
-                double longueur_ligne = Font.getTextLength(text[i], font, numero_gamme);
+            for (int i = 0; i < mentions.size(); i++) {
+                double longueur_ligne = Font.getTextLength(mentions.get(i).nom, mentions.get(i).font,getNumero_gamme(), true);
+                if (getMentions().get(i).ideogram.type != SignIdeogram.SignIdeogramType.NONE)
+                    longueur_ligne += SignIdeogram.getSize(hauteur_composition);
                 if (longueur_ligne > longueur_texte) longueur_texte = longueur_ligne;
             }
 
             longueur_texte = longueur_texte + longueur_supplementaire;
             if (isWith_distance()) {
                 double longueur_distance = 0;
-                for (int i = 0; i < getDistances_directions().length; i++) {
-                    double longueur_ligne = Font.getTextLength(String.valueOf(getDistances_directions()[i]),
-                            getFont(), getNumero_gamme());
+                for (int i = 0; i < getMentions().size(); i++) {
+                    double longueur_ligne = Font.getTextLength(String.valueOf(getMentions().get(i).distance),
+                            getFont(), getNumero_gamme(), true);
                     if (longueur_ligne > longueur_distance) longueur_distance = longueur_ligne;
                 }
-                longueur_texte = longueur_texte + longueur_distance;
+                longueur_texte = longueur_texte + longueur_distance + 2*hauteur_composition;
             }
 
             double longueur_sans_pointe = 0.0;
@@ -281,26 +197,26 @@ public class DirectionalSign extends Sign {
             if (getSignSymbol().type != SignSymbol.SignSymbolType.NONE) {
                 longueur_sans_pointe += 2.5*hauteur_composition + hauteur_composition;
             } else
-            if (getSignIdeogram().type != SignIdeogram.SignIdeogramType.NONE) {
+            if (with_ideogram) {
                 longueur_sans_pointe += 1.5*hauteur_composition + hauteur_composition/2.0;
             }
+
+            longueur_sans_pointe += longueur_texte + hauteur_composition + largeur_listel;
 
             isLong = longueur_sans_pointe + 1.4 * getHauteur_composition() - 7 > 2500;
 
             largeur_listel = isLong ? 40 : 20;
 
-            longueur_sans_pointe += longueur_texte + hauteur_composition + largeur_listel;
-
             longueur_pointe_fleche = hauteur_composition;
 
             switch (getLineNumber()) {
                 case 1 -> {
-                    longueur_pointe_fleche *= (signIdeogram.type != SignIdeogram.SignIdeogramType.NONE) ? 2.1 : 1.4;
+                    longueur_pointe_fleche *= with_ideogram ? 2.1 : 1.4;
                     longueur_pointe_fleche += isLong ? -7 : 21;
 
                     // calcul hauteur
                     hauteur = 2 * largeur_listel + ((signSymbol.type != SignSymbol.SignSymbolType.NONE)
-                                                    ? 3 * hauteur_composition : 2 * hauteur_composition);
+                            ? 3 * hauteur_composition : 2 * hauteur_composition);
                 }
                 case 2 -> {
                     longueur_pointe_fleche *= 2.45;
@@ -319,6 +235,8 @@ public class DirectionalSign extends Sign {
                 default -> throw new IllegalStateException();
             }
             longueur_pointe_fleche += isLong ? -7 : 21;
+
+            //longueur_pointe_fleche = (hauteur/2 - largeur_listel/2) / Math.tan(37.5) - largeur_listel;
 
             longueur = longueur_sans_pointe + longueur_pointe_fleche;
         }
@@ -346,10 +264,6 @@ public class DirectionalSign extends Sign {
 
     public Font.SignFont getFont() {
         return font;
-    }
-
-    public String[] getText() {
-        return text;
     }
 
     public double getLargeur_listel() {
@@ -417,20 +331,12 @@ public class DirectionalSign extends Sign {
         return longueur_supplementaire;
     }
 
-    public double[] getDistances_directions() {
-        return distances_directions;
-    }
-
     public void setWith_distance(boolean with_distance) {
         this.with_distance = with_distance;
     }
 
     public boolean isWith_distance() {
         return with_distance;
-    }
-
-    public SignIdeogram getSignIdeogram() {
-        return signIdeogram;
     }
 
     public SignSymbol getSignSymbol() {
@@ -445,6 +351,22 @@ public class DirectionalSign extends Sign {
         this.longueur_supplementaire = longueur_supplementaire;
     }
 
+    public ArrayList<Mention> getMentions() {
+        return mentions;
+    }
+
+    public void setMentions(ArrayList<Mention> mentions) {
+        this.mentions = mentions;
+    }
+
+    public boolean isWith_ideogram() {
+        return with_ideogram;
+    }
+
+    public void setWith_ideogram(boolean with_ideogram) {
+        this.with_ideogram = with_ideogram;
+    }
+
     public enum DirectionalSignColor {
         WHITE, GREEN, BLUE, YELLOW, BROWN, BLACK, RED
     }
@@ -455,12 +377,11 @@ public class DirectionalSign extends Sign {
 
     @Override
     public String toString() {
-        return text[0];
+        return mentions.get(0).toString();
     }
 
     @Override
     public boolean equals(Object o) {
-
         if (o instanceof DirectionalSign) return equals((DirectionalSign) o);
         else return false;
     }
@@ -469,35 +390,30 @@ public class DirectionalSign extends Sign {
     public int hashCode() {
         int hash = 0;
 
-        if (computed) hash += 1;
-        hash += Arrays.hashCode(distances_directions);
         hash += font.hashCode();
         hash += longueur_supplementaire;
         hash += numero_gamme;
         hash += signDirection.hashCode();
-        hash += signIdeogram.hashCode();
         hash += signSymbol.hashCode();
-        hash += Arrays.hashCode(text);
+        hash += computed ? 1 : 2;
         hash += with_distance ? 1 : 2;
         hash += with_symbol ? 1 : 2;
+        hash += with_ideogram ? 1 : 2;
 
         return hash;
     }
 
     public boolean equals(DirectionalSign other_dir_sign) {
         boolean result = true;
-        result &= this.computed;
-        result &= this.with_distance;
-        result &= (this.distances_directions == other_dir_sign.distances_directions);
-        result &= this.with_symbol;
+        result &= (this.computed == other_dir_sign.computed);
+        result &= (this.with_distance == other_dir_sign.with_distance);
+        result &= (this.with_symbol == other_dir_sign.with_symbol);
         result &= (this.font == other_dir_sign.font);
         result &= (this.lineNumber == other_dir_sign.lineNumber);
         result &= (this.longueur_supplementaire == other_dir_sign.longueur_supplementaire);
         result &= (this.numero_gamme == other_dir_sign.numero_gamme);
         result &= (this.signDirection == other_dir_sign.signDirection);
-        result &= (this.signIdeogram == other_dir_sign.signIdeogram);
         result &= (this.signSymbol == other_dir_sign.signSymbol);
-        result &= Arrays.equals(this.text, other_dir_sign.text);
         result &= (this.color == other_dir_sign.color);
         return result;
     }

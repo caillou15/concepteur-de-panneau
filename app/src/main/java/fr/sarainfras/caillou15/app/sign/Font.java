@@ -7,7 +7,7 @@ import javax.swing.*;
 public class Font {
     public enum SignFont {
         // appelé serre poour les polices que j'ai modifiées pour que les espaces soient corrects
-        L1serre, L2serre, L4;
+        L1serre, L2serre, L4serre;
 
         @Override
         public String toString() {
@@ -15,13 +15,13 @@ public class Font {
         }
     }
 
-    public static double getTextLength(String text, SignFont font, int numeroGamme) {
-        int hc = font == SignFont.L2serre ? DirectionalSign.gammes[numeroGamme+1] : DirectionalSign.gammes[numeroGamme];
+    public static double getTextLength(String text, SignFont font, int numeroGamme, boolean L2grand) {
+        int hc = font == SignFont.L2serre && L2grand ? DirectionalSign.gammes[numeroGamme+1] : DirectionalSign.gammes[numeroGamme];
 
-        if (text.length() == 0) {return 0;}
+        if (text.isEmpty()) {return 0;}
         else {
-            int totalLength = 0;
-            char[] charArray = text.toUpperCase().toCharArray();
+            double totalLength = 0;
+            char[] charArray = text.toCharArray();
             for (int i = 0; i < charArray.length; i++) {
                 totalLength += getLetterLength(charArray[i], font, hc);
                 if (i != charArray.length - 1) totalLength
@@ -34,6 +34,9 @@ public class Font {
 
     public static double getLetterLength(char c, SignFont font, double hc) {
         double base = -1;
+
+        if (Character.isLowerCase(c) && font != SignFont.L4serre) return getLetterLength(Character.toUpperCase(c), font, hc);
+
         switch (font) {
             case L1serre -> {
                 base= switch (c) {
@@ -67,10 +70,10 @@ public class Font {
                     case '8' -> 67;
                     case '-' -> 32.5;
                     case ' ' -> 0;
+                    case '\'' -> 0;
                     default -> throw new IllegalStateException("Unexpected value: " + c);
                 };
                 return base*hc/100;
-
             }
             case L2serre -> {
                 base = switch (c) {
@@ -103,11 +106,97 @@ public class Font {
                     case '8' -> 64.25;
                     case '-' -> 30;
                     case ' ' -> 18.03 * 4;
+                    case '\'' -> 0;
                     default -> throw new IllegalStateException();
                 };
                 return base * hc / 100;
             }
-            case L4 -> /* @TODO taille des lettres L4 à faire*/ throw new NotImplementedException("police L4 non implémentée");
+            case L4serre -> {
+                if (Character.isLetter(c)) {
+                    if (!Character.isLowerCase(c)) {
+                        base= switch (c) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä' -> 78.5;
+                            case 'B' -> 64;
+                            case 'C' -> 72;
+                            case 'D' -> 71.25;
+                            case 'E', 'É', 'È', 'Ê', 'Ë' -> 52.75;
+                            case 'F' -> 51.5;
+                            case 'G' -> 75.5;
+                            case 'H' -> 65.5;
+                            case 'I' -> 17;
+                            case 'J' -> 55.5;
+                            case 'K' -> 69.5;
+                            case 'L' -> 51;
+                            case 'M' -> 93;
+                            case 'N' -> 67.25;
+                            case 'O' -> 74.5;
+                            case 'P' -> 63.5;
+                            case 'Q' -> 82.5;
+                            case 'R' -> 67.25;
+                            case 'S', 'T' -> 67;
+                            case 'U' -> 66;
+                            case 'V' -> 75;
+                            case 'W' -> 118;
+                            case 'X' -> 81.25;
+                            case 'Y' -> 70.5;
+                            case 'Z' -> 65;
+
+                            default -> throw new IllegalStateException("Unexpected value: " + c);
+                        };
+                        return base*hc/100;
+                    } else if (Character.isLowerCase(c)) {
+                        base= switch (c) {
+                            case 'a', 'à', 'á', 'â', 'ã', 'ä' -> 53.25;
+                            case 'b', 'd', 'p', 'q' -> 55;
+                            case 'c', 'g' -> 54.5;
+                            case 'e', 'é', 'è', 'ê', 'ë' -> 55.5;
+                            case 'f' -> 37.25;
+                            case 'h', 'u' -> 53;
+                            case 'i', 'l' -> 16;
+                            case 'j' -> 29.25;
+                            case 'k' -> 63;
+                            case 'm' -> 88.5;
+                            case 'n' -> 53.5;
+                            case 'o' -> 57.25;
+                            case 'r' -> 32;
+                            case 's' -> 49;
+                            case 't' -> 40.25;
+                            case 'v' -> 58.25;
+                            case 'w' -> 98.5;
+                            case 'x' -> 62;
+                            case 'y' -> 59;
+                            case 'z' -> 50;
+
+                            default -> throw new IllegalStateException("Unexpected value: " + c);
+                        };
+                        return base*hc/100;
+                    } else if (Character.isDigit(c)) {
+                        base= switch (c) {
+                            case '0' -> 72;
+                            case '1' -> 30.75;
+                            case '2' -> 63.55;
+                            case '3' -> 68;
+                            case '4' -> 72;
+                            case '5' -> 69;
+                            case '6', '9' -> 70.25;
+                            case '7' -> 62.25;
+                            case '8' -> 68.25;
+
+                            default -> throw new IllegalStateException("Unexpected value: " + c);
+                        };
+                        return base*hc/100;
+                    } else throw new IllegalStateException("Unexpected value: " + c);
+                } else {
+                    base= switch (c) {
+                        case '-' -> 28;
+                        case ' ' -> 0;
+                        case '\'' -> 0;
+                        case '.' -> 14;
+                        default -> throw new IllegalStateException("Unexpected value: " + c);
+                    };
+                    return base*hc/100;
+                }
+            }
         }
         return -1;
     }
@@ -119,10 +208,19 @@ public class Font {
 
         if (c1 == '-' || c2 == '-') return 0.3*hc;
         if (c1 == '.' || c2 == '.') return 0.25*hc;
-        if (c1 == ' ' || c2 == ' ') return font==SignFont.L2serre ? 0.25*hc : 0.5*hc;
+        if (c1 == ' ' || c2 == ' ') return font==SignFont.L2serre ? 0.25*0.5*(hc-1) : 0.5*0.75*hc;
+        if (c1 == '\'') return 0.7*hc;
+        else if (c2 == '\'') return 0.1*hc;
 
         if (Character.isDigit(c1) && Character.isDigit(c2)) {
             return getGapLengthBetweenDigits(c1, c2, font);
+        } else if ((Character.isDigit(c1) && !Character.isDigit(c2))
+                ||(Character.isDigit(c2) && !Character.isDigit(c1))) {
+            return 0.5*hc;
+        } else if (Character.isLowerCase(c1) && font != SignFont.L4serre) {
+            return getGapLengthBetweenLetter(Character.toUpperCase(c1), c2, font, numeroGamme);
+        } else if (Character.isLowerCase(c2) && font != SignFont.L4serre) {
+            return getGapLengthBetweenLetter(c1, Character.toUpperCase(c2), font, numeroGamme);
         }
 
         switch (font) {
@@ -138,13 +236,13 @@ public class Font {
                     };
                     case 'B', 'D', 'E', 'É', 'È', 'Ê', 'Ë', 'F',
                             'H', 'I', 'K', 'L', 'M', 'P', 'R', 'N' -> code = switch (c2) {
-                                case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'X', 'V', 'T', 'F', 'C' -> 6;
-                                case 'B', 'R', 'E', 'É', 'È', 'Ê', 'Ë', 'Q', 'O', 'G', 'D' -> 8;
-                                case 'H', 'P', 'M', 'N', 'U', 'J', 'I', 'L' -> 9;
-                                case 'K', 'Z', 'W', 'S' -> 7;
-                                case 'Y' -> 5;
-                                default -> throw new IllegalStateException("Unexpected value: " + c2);
-                            };
+                        case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'X', 'V', 'T', 'F', 'C' -> 6;
+                        case 'B', 'R', 'E', 'É', 'È', 'Ê', 'Ë', 'Q', 'O', 'G', 'D' -> 8;
+                        case 'H', 'P', 'M', 'N', 'U', 'J', 'I', 'L' -> 9;
+                        case 'K', 'Z', 'W', 'S' -> 7;
+                        case 'Y' -> 5;
+                        default -> throw new IllegalStateException("Unexpected value: " + c2);
+                    };
                     case 'C', 'G', 'O', 'Q' -> code = switch (c2) {
                         case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'C', 'F', 'K', 'P', 'T', 'V', 'X' -> 5;
                         case 'B', 'Q', 'O', 'G', 'D', 'U', 'J', 'R' -> 7;
@@ -263,7 +361,142 @@ public class Font {
                 }
 
             }
-            case L4 -> {/* @TODO taille des espaces entre lettres L4 à faire*/}
+            case L4serre -> {/* @TODO taille des espaces entre lettres L4 à faire*/
+                if ( (!Character.isLowerCase(c1)) && (!Character.isLowerCase(c2)) ) {
+                    switch (c1) {
+                        case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'C', 'K', 'L', 'W', 'Z' -> 4;
+                            case 'E', 'É', 'È', 'Ê', 'Ë', 'U', 'J' -> 6;
+                            case 'B', 'O', 'Q', 'G', 'D', 'H', 'I', 'M', 'N', 'R', 'S' -> 5;
+                            case 'F', 'V', 'X' -> 3;
+                            case 'P', 'T', 'Y' -> 2;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'B', 'D', 'E', 'É', 'È', 'Ê', 'Ë', 'F',
+                                'H', 'K', 'L', 'M', 'P', 'R', 'N' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'X', 'V', 'C', 'P' -> 6;
+                            case 'B', 'R', 'E', 'É', 'È', 'Ê', 'Ë', 'Q', 'G', 'D', 'L' -> 8;
+                            case 'H', 'M', 'N', 'U', 'J', 'O', 'I', 'T' -> 9;
+                            case 'K', 'Z', 'W', 'S' -> 7;
+                            case 'F', 'Y' -> 5;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'I' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'X', 'V', 'C', 'P' -> 6;
+                            case 'B', 'R', 'E', 'É', 'È', 'Ê', 'Ë', 'Q', 'G', 'D' -> 8;
+                            case 'H', 'M', 'N', 'U', 'J', 'O', 'I', 'T', 'L' -> 9;
+                            case 'K', 'Z', 'W', 'S' -> 7;
+                            case 'F', 'Y' -> 5;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'C', 'G', 'O', 'Q' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'C', 'F', 'K', 'P', 'T', 'V', 'X' -> 5;
+                            case 'B', 'Q', 'O', 'G', 'D', 'U', 'J', 'R' -> 7;
+                            case 'E', 'É', 'È', 'Ê', 'Ë', 'S', 'W', 'Z', 'N' -> 6;
+                            case 'H', 'I', 'M' -> 8;
+                            case 'L', 'Y' -> 4;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'J' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'C', 'L', 'X', 'Z' -> 3;
+                            case 'B', 'H', 'I', 'M', 'N' -> 5;
+                            case 'Q', 'O', 'G', 'D', 'K', 'R', 'S' -> 4;
+                            case 'E', 'É', 'È', 'Ê', 'Ë', 'U', 'J' -> 6;
+                            case 'F', 'P', 'W' -> 2;
+                            case 'T', 'V', 'Y' -> 1;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'S' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'L', 'P', 'T', 'X' -> 4;
+                            case 'B', 'Q', 'O', 'G', 'D', 'U', 'J', 'R' -> 6;
+                            case 'C', 'E', 'É', 'È', 'Ê', 'Ë', 'F', 'K', 'S', 'V', 'W', 'Z' -> 5;
+                            case 'H', 'I', 'M', 'N' -> 7;
+                            case 'Y' -> 2;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'T' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'L', 'R' -> 2;
+                            case 'B', 'C', 'Q', 'O', 'G', 'D', 'F', 'K', 'W', 'Z' -> 5;
+                            case 'E', 'É', 'È', 'Ê', 'Ë', 'H', 'M', 'N', 'U', 'J' -> 6;
+                            case 'P', 'Y' -> 3;
+                            case 'S', 'T', 'V', 'X', 'I' -> 4;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'U' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'C', 'F', 'K', 'T', 'V', 'Z' -> 6;
+                            case 'B', 'Q', 'O', 'G', 'D', 'R', 'S', 'W' -> 7;
+                            case 'E', 'É', 'È', 'Ê', 'Ë', 'U', 'J' -> 8;
+                            case 'H', 'I', 'M', 'N' -> 9;
+                            case 'L', 'P', 'X' -> 5;
+                            case 'Y' -> 3;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'V' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'P' -> 3;
+                            case 'B', 'C', 'Q', 'O', 'G', 'D', 'F', 'K', 'S', 'T', 'X' -> 4;
+                            case 'E', 'É', 'È', 'Ê', 'Ë', 'R', 'V', 'W', 'Z' -> 5;
+                            case 'H', 'M', 'N', 'U', 'J' -> 6;
+                            case 'L', 'Y' -> 2;
+                            case 'I' -> 1;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'W' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'C', 'P', 'Y' -> 4;
+                            case 'B', 'Q', 'O', 'G', 'D', 'E', 'É', 'È', 'Ê', 'Ë', 'U', 'J', 'R', 'S' -> 6;
+                            case 'F', 'K', 'T', 'W', 'V', 'X', 'Z' -> 5;
+                            case 'H', 'I', 'M', 'N' -> 7;
+                            case 'L' -> 3;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'X' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'P', 'S', 'X', 'Y' -> 3;
+                            case 'B', 'C', 'F', 'K', 'T', 'V' -> 4;
+                            case 'Q', 'O', 'G', 'D', 'E', 'É', 'È', 'Ê', 'Ë', 'U', 'J', 'R', 'W', 'Z' -> 5;
+                            case 'H', 'I', 'M', 'N' -> 6;
+                            case 'L' -> 2;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'Y' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'C', 'P', 'V' -> 2;
+                            case 'B', 'Q', 'O', 'G', 'D', 'T', 'X' -> 3;
+                            case 'E', 'É', 'È', 'Ê', 'Ë', 'F', 'U', 'J', 'K', 'R', 'S', 'W', 'Z' -> 4;
+                            case 'H', 'I', 'M', 'N' -> 5;
+                            case 'L', 'Y' -> 1;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        case 'Z' -> code = switch (c2) {
+                            case 'A', 'À', 'Á', 'Â', 'Ã', 'Ä', 'P' -> 4;
+                            case 'B', 'T', 'S', 'K' -> 6;
+                            case 'C', 'X', 'W', 'V', 'R', 'L', 'F', 'Q', 'O', 'G', 'D' -> 5;
+                            case 'E', 'É', 'È', 'Ê', 'Ë', 'U', 'J', 'H', 'I', 'M', 'N' -> 7;
+                            case 'Y', 'Z' -> 3;
+                            default -> throw new IllegalStateException("Unexpected value: " + c2);
+                        };
+                        default -> throw new IllegalStateException("Unexpected value: " + c1);
+                    }
+
+                    return switch (code) {
+                        case 1 -> 8;
+                        case 2 -> 11;
+                        case 3 -> 14;
+                        case 4 -> 17;
+                        case 5 -> 20;
+                        case 6 -> 23;
+                        case 7 -> 26;
+                        case 8 -> 28;
+                        case 9 -> 31;
+                        default -> -1;
+                    };
+                } else if ( (Character.isLowerCase(c1)) && (Character.isLowerCase(c2)) ) {
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
+                            "c1: " + c1 + " c2: " + c2 +
+                                    " - les dimensions d'espaces des lettres minuscules n'ont pas encore été definies");
+                } else {
+
+                }
+
+
+            }
         }
         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
                 "c1: " + c1 + " c2: " + c2 + " - cette dimension d'espace n'est pas definie");
@@ -328,7 +561,61 @@ public class Font {
                     default -> throw new IllegalStateException("Unexpected value: " + c1);
                 }
             }
-            case L4 -> throw new NotImplementedException();
+            case L4serre -> {
+                switch (c1) {
+                    case '0', '6' -> code = switch (c2) {
+                        case '0', '9' -> 7;
+                        case '1' -> 8;
+                        case '2', '4', '6', '3', '5', '8' -> 6;
+                        case '7' -> 5;
+                        default -> throw new IllegalStateException("Unexpected value: " + c2);
+                    };
+                    case '1' -> code = switch (c2) {
+                        case '0', '9', '2', '4', '6', '3', '8' -> 6;
+                        case '1' -> 7;
+                        case '5', '7' -> 5;
+                        default -> throw new IllegalStateException("Unexpected value: " + c2);
+                    };
+                    case '2', '5' -> code = switch (c2) {
+                        case '0', '9', '2', '4', '6', '3', '5' -> 6;
+                        case '1' -> 8;
+                        case '7', '8' -> 5;
+                        default -> throw new IllegalStateException("Unexpected value: " + c2);
+                    };
+                    case '3' -> code = switch (c2) {
+                        case '0', '9', '2', '4', '6', '3' -> 5;
+                        case '1' -> 7;
+                        case '5', '7', '8' -> 4;
+                        default -> throw new IllegalStateException("Unexpected value: " + c2);
+                    };
+                    case '4' -> code = switch (c2) {
+                        case '0', '9', '1' -> 6;
+                        case '2', '4', '6', '3', '7' -> 5;
+                        case '5', '8' -> 4;
+                        default -> throw new IllegalStateException("Unexpected value: " + c2);
+                    };
+                    case '7' -> code = switch (c2) {
+                        case '0', '9', '2', '4', '6', '3', '8' -> 5;
+                        case '1' -> 7;
+                        case '5', '7' -> 4;
+                        default -> throw new IllegalStateException("Unexpected value: " + c2);
+                    };
+                    case '8' -> code = switch (c2) {
+                        case '0', '9', '2', '4', '6', '5' -> 6;
+                        case '1' -> 8;
+                        case '3', '8' -> 7;
+                        case '7' -> 5;
+                        default -> throw new IllegalStateException("Unexpected value: " + c2);
+                    };
+                    case '9' -> code = switch (c2) {
+                        case '0', '9', '2', '4', '6', '3', '5', '8' -> 6;
+                        case '1' -> 8;
+                        case '7' -> 5;
+                        default -> throw new IllegalStateException("Unexpected value: " + c2);
+                    };
+                    default -> throw new IllegalStateException("Unexpected value: " + c1);
+                }
+            }
         }
 
         switch (font) {

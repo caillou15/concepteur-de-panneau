@@ -17,6 +17,13 @@ public class SignUI extends EditorUI {
     Document svg_document;
     DirectionalSign sign = null;
 
+    /**
+     * Constructeur à utiliser dans le cas de l'édition d'un unique panneau.
+     * Si il s'agit d'éditer un ensemble de panneaux, il utiliser l'interface {@link fr.sarainfras.caillou15.app.signgroup.SignGroupUI} pour le groupe,
+     * et l'autre constructeur de {@link fr.sarainfras.caillou15.app.sign.SignUI} pour l'éditeur de panneau simple.
+     *
+     * @param main_frame fenêtre dans laquelle est affiché l'interface {@code SignUI}
+     */
     public SignUI(AppWindow main_frame) {
         this.main_frame = main_frame;
         renderer = new Renderer(main_frame);
@@ -29,6 +36,15 @@ public class SignUI extends EditorUI {
         this.sign = dir_sign;
     }
 
+    /**
+     * Constructeur à utiliser dans le cas de l'édition d'un panneau dans un groupe.
+     * Si il s'agit d'éditer un ensemble de panneaux, il utiliser l'interface {@link fr.sarainfras.caillou15.app.signgroup.SignGroupUI} pour le groupe,
+     * et l'autre constructeur de {@link fr.sarainfras.caillou15.app.sign.SignUI} pour l'éditeur de panneau simple.
+     *
+     * @param main_frame fenêtre dans laquelle afficher l'interface {@code SignUI}
+     * @param dir_sign panneau à éditer
+     * @param mainUI interface principale (ou "parente") dans laquelle est édité le groupe de panneaux
+     */
     public SignUI(AppWindow main_frame, DirectionalSign dir_sign, boolean mainUI) {
         this(main_frame, dir_sign);
         if (mainUI) {
@@ -68,17 +84,12 @@ public class SignUI extends EditorUI {
 
         if (sign != null) left_panel.add(new SignPropertyPane(main_frame, sign, this));
         else left_panel.add(new SignPropertyPane(main_frame, this));
-        left_panel.add(new Box.Filler(new Dimension(0, 0), new Dimension(0, 2000), new Dimension(0, 2000)));
+        //left_panel.add(new Box.Filler(new Dimension(0, 0), new Dimension(0, 2000), new Dimension(0, 2000)));
 
         getSplitPane().setDividerLocation(getSplitPane().getMinimumDividerLocation());
 
         this.add(getSplitPane());
     }
-
-    public void new_sign() {
-
-    }
-
 
     @Override
     public Document getSvgDocument() {

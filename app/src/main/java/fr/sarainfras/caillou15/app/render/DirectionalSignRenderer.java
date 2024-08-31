@@ -41,7 +41,7 @@ public class DirectionalSignRenderer extends Renderer{
         if (sign == null) super.render(null);
 
         if (!(sign instanceof DirectionalSign))
-            throw new SignException("la classe specialise de rendu de panneau reçois un panneau d'un autre type");
+            throw new SignException("la classe specialise de rendu de panneau de direction reçois un panneau d'un autre type");
         super.render(sign);
     }
 

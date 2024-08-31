@@ -50,6 +50,7 @@ public class AppWindow extends JFrame {
 
     private void init_gui() {
         init_menu();
+        this.setTitle("Générateur de panneau");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
     }

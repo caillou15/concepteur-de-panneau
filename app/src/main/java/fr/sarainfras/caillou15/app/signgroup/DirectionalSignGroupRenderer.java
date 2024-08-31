@@ -2,15 +2,11 @@ package fr.sarainfras.caillou15.app.signgroup;
 
 import fr.sarainfras.caillou15.app.AppWindow;
 import fr.sarainfras.caillou15.app.Constants;
-import fr.sarainfras.caillou15.app.SignException;
 import fr.sarainfras.caillou15.app.events.group.SignGroupChangeListener;
 import fr.sarainfras.caillou15.app.render.DirectionalSignRenderer;
 import fr.sarainfras.caillou15.app.sign.DirectionalSign;
 import org.apache.batik.anim.dom.SVGDOMImplementation;
-import org.apache.batik.bridge.CSSFontFace;
-import org.apache.batik.bridge.CSSUtilities;
 import org.apache.batik.swing.JSVGCanvas;
-import org.apache.batik.swing.JSVGScrollPane;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.apache.batik.swing.svg.JSVGComponent;
@@ -22,7 +18,6 @@ import org.w3c.dom.Element;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.util.Map;
 
 public class DirectionalSignGroupRenderer extends JPanel implements SignGroupChangeListener {
     AppWindow main_frame;
@@ -92,25 +87,47 @@ public class DirectionalSignGroupRenderer extends JPanel implements SignGroupCha
         Element sign_group_e = svg_document.createElementNS(svgNS, "g");
         double hauteur_accumulee = 0.0;
 
+        for (int i = 0; i < directionalSignGroup.cartoucheArrayList.size(); i++) {
+            Cartouche cartouche = directionalSignGroup.cartoucheArrayList.get(i);
+            Element cartouche_e = renderer.renderCartouche(cartouche, directionalSignGroup);
+
+            if (i == 0) {
+                //décalage horizontal
+                cartouche_e.setAttribute("transform", "translate(" + (directionalSignGroup.longueur/3 - cartouche.getLongueur()/2) + "," + 0.0 + ")");
+            }
+            if (i != 0) {
+                //décalage horizontal et vertical
+                cartouche_e.setAttribute("transform", "translate(" + (directionalSignGroup.longueur/3 - cartouche.getLongueur()/2) + "," + hauteur_accumulee + ")");
+            }
+            sign_group_e.appendChild(cartouche_e);
+
+            hauteur_accumulee += cartouche.getHauteur();
+            hauteur_accumulee += dir_sign_grp.getEspaceEntrePanneauMemeDirection(
+                    DirectionalSign.gammes[dir_sign_grp.getSign(0).getNumero_gamme()]);
+        }
+
         for (int i = 0; i < directionalSignGroup.directionalSignArrayList.size(); i++) {
             DirectionalSign dir_sign = directionalSignGroup.directionalSignArrayList.get(i);
             Element sign_e = renderer.renderDirectionalSign(dir_sign);
 
-            if (i != 0) {
+            if (i != 0 || !directionalSignGroup.cartoucheArrayList.isEmpty()) {
                 //décalage
-                sign_e.setAttribute("transform", "translate(0.0," + hauteur_accumulee/1.0 + ")");
+                sign_e.setAttribute("transform", "translate(0.0," + hauteur_accumulee + ")");
             }
             sign_group_e.appendChild(sign_e);
 
             hauteur_accumulee += dir_sign.getHauteur() + 0*dir_sign.getLargeur_listel();
-            hauteur_accumulee += dir_sign_grp.getEspaceEntrePanneauMemeDirection(
+            if (directionalSignGroup.getSignList().size() > 1)
+                hauteur_accumulee += dir_sign_grp.getEspaceEntrePanneauMemeDirection(
                     DirectionalSign.gammes[dir_sign_grp.getSign(i).getNumero_gamme()]);
         }
 
         svg_document.getDocumentElement().appendChild(sign_group_e);
 
+
+
         svgCanvas.setRecenterOnResize(true);
-        CSSUtilities.convertTextRendering(svg_document.getDocumentElement(), null);
+        svgCanvas.setDoubleBufferedRendering(true);
 
         svgCanvas.setDocument(getSvg_document());
 

@@ -1,0 +1,52 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[hyphens]{url}
+\usepackage{enumitem, pifont, amsmath, amsfonts, amssymb, graphicx}
+\usepackage[pdfauthor = {{caillou15}}, pdftitle = {{Guide d'utilisation du générateur de panneaux}}, pdfstartview = Fit, pdfpagelayout = SinglePage, pdfnewwindow = true, bookmarksnumbered = true, breaklinks, colorlinks, linkcolor = blue, urlcolor = black, citecolor = cyan, linktoc = all]{hyperref}
+\makeatletter\@addtoreset{section}{chapter}\makeatother
+
+\title{\textbf{Guide d'utilisation du \\Générateur de panneaux}}
+\author{caillou15}
+
+\setlist[itemize, 1]{label = {--}, itemsep = \baselineskip, labelsep = 10pt}
+\everymath{\displaystyle}
+
+\begin{document}
+	\maketitle
+	\clearpage\setcounter{page}{2}
+	\hypersetup{hidelinks}
+	\renewcommand{\contentsname}{Sommaire}
+	\tableofcontents
+	
+\chapter{Généralités}
+\section{Principe}
+Le but de ce petit est de permettre de générer des panneaux selon différents paramètres. Il est prévu à l'origine principalement pour la conception de panneaux de direction, mais il a vocation à générer tous les panneaux de signalisations existants, voire anciens.
+
+\section{Rendu}
+Le logiciel propose une pré-visualisation du rendu dans l'interface graphique, mais le principal rendu est l'exportation d'une image vectorielle au format SVG.
+
+\chapter{Utilisation}
+\section{Interface}
+Le logiciel fonctionne avec différents écrans selon l'échelle de précision des informations à fournir.
+
+\subsection{Écran principal}
+L'écran principal est vide au démarrage : il faut choisir le type de structure dans le menu \og Fichier \fg, entre Panneau et Groupe de Panneaux.
+
+\subsection{Écran de groupe de panneaux (de direction pour le moment)}
+Cet écran propose l'option d'alignement des différents panneaux de directions par ajustement de la longueur des panneaux. Il propose également la liste des panneau qui composent le groupe, avec des boutons pour en ajouter, supprimer le panneau sélectionné, ou éditer le panneau sélectionné.
+Dans le futur, la gestion du/des cartouche(s), ainsi que la possibilité de l'affichage du mât.
+
+\subsection{Écran de panneau}
+Cet écran propose une édition par étape (si le panneau vient d'être créé) :
+\begin{enumerate}
+	\item Choix de la catégorie de panneau : forme générale du panneau
+	\item Choix du type de panneau par ID : code officiel du panneau spécifié dans l'Instruction Interministérielle de la Signalisation Routière (IISR)
+	\item affichage des différentes propriétés spécifiques à chaque type de panneau, qui permettent de le personnaliser.
+\end{enumerate}
+
+\chapter[versions et idées]{Versions et Nouveautés prévues dans le futur}
+
+\end{document}

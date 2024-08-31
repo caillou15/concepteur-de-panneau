@@ -7,6 +7,8 @@ import fr.sarainfras.caillou15.app.SignException;
 import fr.sarainfras.caillou15.app.events.sign.SignListener;
 import fr.sarainfras.caillou15.app.sign.*;
 import fr.sarainfras.caillou15.app.sign.Font;
+import fr.sarainfras.caillou15.app.signgroup.Cartouche;
+import fr.sarainfras.caillou15.app.signgroup.DirectionalSignGroup;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.apache.batik.swing.JSVGCanvas;
@@ -165,26 +167,34 @@ public class Renderer extends JPanel implements SignListener {
         Element sign_e = svg_doc.createElementNS(svgNS, "g");
         this.setSvg_document(svg_doc);
 
-        Element listel_haut = renderRectangle(dir_sign.getLargeur_listel(), 0,
-                (dir_sign.getLongueur() - dir_sign.getLongueur_pointe_fleche() - dir_sign.getLargeur_listel()),
+        Element listel_haut = renderRectangle(dir_sign.getLargeur_listel()*1.5, 0,
+                (dir_sign.getLongueur() - dir_sign.getLongueur_pointe_fleche() - dir_sign.getLargeur_listel()*1.5),
                 dir_sign.getLargeur_listel(), DirectionalSign.getSecondColor(dir_sign.getColor()));
-        Element listel_bas = renderRectangle(dir_sign.getLargeur_listel(),
+        Element listel_bas = renderRectangle(dir_sign.getLargeur_listel()*1.5,
                 dir_sign.getHauteur() - dir_sign.getLargeur_listel(),
-                (dir_sign.getLongueur() - dir_sign.getLongueur_pointe_fleche() - dir_sign.getLargeur_listel()),
+                (dir_sign.getLongueur() - dir_sign.getLongueur_pointe_fleche() - dir_sign.getLargeur_listel()*1.5),
                 dir_sign.getLargeur_listel(), DirectionalSign.getSecondColor(dir_sign.getColor()));
-        Element listel_gauche = renderRectangle(0, dir_sign.getLargeur_listel(),
-                dir_sign.getLargeur_listel(), dir_sign.getHauteur() - dir_sign.getLargeur_listel()*2,
+        Element listel_gauche = renderRectangle(0, dir_sign.getLargeur_listel()*1.5,
+                dir_sign.getLargeur_listel()*1.5, dir_sign.getHauteur() - dir_sign.getLargeur_listel()*3,
                 DirectionalSign.getSecondColor(dir_sign.getColor()));
-        Element rond_coin_haut = renderCircle(dir_sign.getLargeur_listel(), dir_sign.getLargeur_listel(),
-                dir_sign.getLargeur_listel(), DirectionalSign.getSecondColor(dir_sign.getColor()));
-        Element rond_coin_bas = renderCircle(dir_sign.getLargeur_listel(),
-                dir_sign.getHauteur()-dir_sign.getLargeur_listel(), dir_sign.getLargeur_listel(),
+        Element rond_coin_haut = renderCircle(dir_sign.getLargeur_listel()*1.5, dir_sign.getLargeur_listel()*1.5,
+                dir_sign.getLargeur_listel()*1.5, DirectionalSign.getSecondColor(dir_sign.getColor()));
+        Element rond_coin_bas = renderCircle(dir_sign.getLargeur_listel()*1.5,
+                dir_sign.getHauteur()-dir_sign.getLargeur_listel()*1.5, dir_sign.getLargeur_listel()*1.5,
                 DirectionalSign.getSecondColor(dir_sign.getColor()));
         Element pointe_de_fleche = renderPointeFleche(dir_sign);
         Element texte = getSvg_document().createElementNS(svgNS, "g");
-        Element fond_blanc = renderRectangle(dir_sign.getLargeur_listel(), dir_sign.getLargeur_listel(),
+        Element fond_blanc = renderRectangle(dir_sign.getLargeur_listel()*1.5, dir_sign.getLargeur_listel(),
                 dir_sign.getLongueur()-dir_sign.getLongueur_pointe_fleche()-dir_sign.getLargeur_listel(),
                 dir_sign.getHauteur()-2*dir_sign.getLargeur_listel(), dir_sign.getColor());
+        Element fond_blanc_bord_bout = renderRectangle(dir_sign.getLargeur_listel(), dir_sign.getLargeur_listel()*1.5,
+                dir_sign.getLargeur_listel()*1.5, dir_sign.getHauteur()-3*dir_sign.getLargeur_listel(), dir_sign.getColor());
+        Element fond_bland_bord_arrondi_haut = renderCircle(
+                dir_sign.getLargeur_listel()*1.5, dir_sign.getLargeur_listel()*1.5,
+                dir_sign.getLargeur_listel()/2, dir_sign.getColor());
+        Element fond_bland_bord_arrondi_bas = renderCircle(
+                dir_sign.getLargeur_listel()*1.5, dir_sign.getHauteur()-dir_sign.getLargeur_listel()*1.5,
+                dir_sign.getLargeur_listel()/2, dir_sign.getColor());
         fond_blanc.setAttributeNS(null, "style",
                 "fill:"+DirectionalSign.getColorHex(dir_sign.getColor()));
 
@@ -194,27 +204,30 @@ public class Renderer extends JPanel implements SignListener {
         sign_e.appendChild(rond_coin_haut);
         sign_e.appendChild(rond_coin_bas);
         sign_e.appendChild(fond_blanc);
+        sign_e.appendChild(fond_blanc_bord_bout);
+        sign_e.appendChild(fond_bland_bord_arrondi_haut);
+        sign_e.appendChild(fond_bland_bord_arrondi_bas);
         sign_e.appendChild(texte);
         sign_e.appendChild(pointe_de_fleche);
 
         int gamme_actuelle = (dir_sign.getFont() == Font.SignFont.L2serre)
                 ?DirectionalSign.gammes[dir_sign.getNumero_gamme() + 1]
                 :DirectionalSign.gammes[dir_sign.getNumero_gamme()];
-        // ideogramme si utilisé
-        if (dir_sign.getSignIdeogram().type != SignIdeogram.SignIdeogramType.NONE)
-            sign_e.appendChild( renderEmplacementIdeogeogram(dir_sign) );
+        // ideogramme si utilisé - @TODO à supprimer (aussi dans renderLeft)
+        /*if (dir_sign.getSignIdeogram().type != SignIdeogram.SignIdeogramType.NONE)
+            sign_e.appendChild( renderEmplacementIdeogeogram(dir_sign) );*/
         // symbole si utilisé
         if (dir_sign.getSignSymbol().type == SignSymbol.SignSymbolType.INDICATION) {
             double z = dir_sign.getLargeur_listel() + 0.5*gamme_actuelle;
-            double y = dir_sign.getHauteur()/2.0 - dir_sign.getSignSymbol().getSize(gamme_actuelle)/2.0;
+            double y = dir_sign.getHauteur()/2.0 - SignSymbol.getSize(gamme_actuelle)/2.0;
             //carré blanc
-            sign_e.appendChild(renderRectangle(z, y, dir_sign.getSignSymbol().getSize(gamme_actuelle),
-                    dir_sign.getSignSymbol().getSize(gamme_actuelle), DirectionalSign.DirectionalSignColor.WHITE));
+            sign_e.appendChild(renderRectangle(z, y, SignSymbol.getSize(gamme_actuelle),
+                    SignSymbol.getSize(gamme_actuelle), DirectionalSign.DirectionalSignColor.WHITE));
             //carré bleu
             z += 0.06*gamme_actuelle;
             y += 0.06*gamme_actuelle;
-            sign_e.appendChild(renderRectangle(z, y, dir_sign.getSignSymbol().getBlueSquareSize(gamme_actuelle),
-                    dir_sign.getSignSymbol().getBlueSquareSize(gamme_actuelle),
+            sign_e.appendChild(renderRectangle(z, y, SignSymbol.getBlueSquareSize(gamme_actuelle),
+                    SignSymbol.getBlueSquareSize(gamme_actuelle),
                     DirectionalSign.DirectionalSignColor.BLUE));
         } else
         if (dir_sign.getSignSymbol().type == SignSymbol.SignSymbolType.INTERDICTION) {
@@ -222,60 +235,79 @@ public class Renderer extends JPanel implements SignListener {
             double y = dir_sign.getHauteur()/2.0;
             //rond bord blanc
             sign_e.appendChild(renderCircle(z +
-                            dir_sign.getSignSymbol().getSize(gamme_actuelle)/2.0, y,
-                    dir_sign.getSignSymbol().getSize(gamme_actuelle)/2.0, DirectionalSign.DirectionalSignColor.WHITE));
+                            SignSymbol.getSize(gamme_actuelle)/2.0, y,
+                    SignSymbol.getSize(gamme_actuelle)/2.0, DirectionalSign.DirectionalSignColor.WHITE));
             //rond rouge
             z += 0.06*gamme_actuelle;
             sign_e.appendChild(renderCircle(z +
-                            dir_sign.getSignSymbol().getRedCircleSize(gamme_actuelle)/2.0,
-                    y, dir_sign.getSignSymbol().getRedCircleSize(gamme_actuelle)/2.0,
+                            SignSymbol.getRedCircleSize(gamme_actuelle)/2.0,
+                    y, SignSymbol.getRedCircleSize(gamme_actuelle)/2.0,
                     DirectionalSign.DirectionalSignColor.RED));
             //rond blanc interieur
             z += 0.25*gamme_actuelle;
             sign_e.appendChild(renderCircle(z +
-                            dir_sign.getSignSymbol().getWhiteInnerCircleSize(gamme_actuelle)/2.0,
-                    y, dir_sign.getSignSymbol().getWhiteInnerCircleSize(gamme_actuelle)/2.0,
+                            SignSymbol.getWhiteInnerCircleSize(gamme_actuelle)/2.0,
+                    y, SignSymbol.getWhiteInnerCircleSize(gamme_actuelle)/2.0,
                     DirectionalSign.DirectionalSignColor.WHITE));
         }
 
-        // texte
+        // texte et symbole par mention
         double decalage;
-        for (int j = 1; j < dir_sign.getLineNumber()+1; j++) {
+
+        for (int j = 0; j < dir_sign.getMentions().size(); j++) {
+            //rendu par mention
+            Font.SignFont font =
+                    dir_sign.getMentions().get(j).font == Font.SignFont.L4serre ?
+                            Font.SignFont.L4serre : dir_sign.getFont();
+            //calcul du décalage
             decalage = gamme_actuelle/2.0 + dir_sign.getLargeur_listel();
-            if (dir_sign.getSignIdeogram().type != SignIdeogram.SignIdeogramType.NONE)
-                decalage += dir_sign.getSignIdeogram().getSize(dir_sign.getHauteur_composition()) + gamme_actuelle/2.0;
+            if (dir_sign.isWith_ideogram())
+                decalage += SignIdeogram.getSize(dir_sign.getHauteur_composition()) + gamme_actuelle/2.0;
             if (dir_sign.getSignSymbol().type != SignSymbol.SignSymbolType.NONE)
-                decalage += dir_sign.getSignSymbol().getSize(dir_sign.getHauteur_composition()) + gamme_actuelle;
+                decalage += SignSymbol.getSize(dir_sign.getHauteur_composition()) + gamme_actuelle;
             //nom
             if (dir_sign.getSignSymbol().type != SignSymbol.SignSymbolType.NONE && dir_sign.getLineNumber() == 1)
                 sign_e.appendChild( renderText(decalage,  dir_sign.getLargeur_listel() + gamme_actuelle*2,
-                        gamme_actuelle, dir_sign.getText()[j-1], dir_sign.getFont(),
-                        DirectionalSign.getSecondColor(dir_sign.getColor())));
-            else sign_e.appendChild( renderText(decalage,  dir_sign.getLargeur_listel() + gamme_actuelle/2.0*(j)
-                            + gamme_actuelle*j-1, dir_sign.getNumero_gamme(), dir_sign.getText()[j-1],
-                    dir_sign.getFont(), DirectionalSign.getSecondColor(dir_sign.getColor()))
+                        dir_sign.getNumero_gamme(), dir_sign.getMentions().get(j).toString(), font,
+                        DirectionalSign.getSecondColor(dir_sign.getColor()), true));
+            else sign_e.appendChild( renderText(decalage,  dir_sign.getLargeur_listel() + gamme_actuelle/2.0*(j+1)
+                            + gamme_actuelle*(j+1), dir_sign.getNumero_gamme(), dir_sign.getMentions().get(j).toString(),
+                    font, DirectionalSign.getSecondColor(dir_sign.getColor()), true)
             );
             // distance
             if (dir_sign.isWith_distance()) {
                 String digit_string;
-                if (dir_sign.getDistances_directions()[j-1] ==
-                        (int) dir_sign.getDistances_directions()[j-1] ) digit_string =
-                        String.valueOf((int) dir_sign.getDistances_directions()[j-1]);
-                else digit_string = String.valueOf(dir_sign.getDistances_directions()[j-1]);
+                if (dir_sign.getMentions().get(j).distance ==
+                        (int) dir_sign.getMentions().get(j).distance ) digit_string =
+                        String.valueOf((int) dir_sign.getMentions().get(j).distance);
+                else digit_string = String.valueOf(dir_sign.getMentions().get(j).distance);
 
                 decalage = dir_sign.getLongueur()-dir_sign.getLongueur_pointe_fleche() -
                         Font.getTextLength(digit_string,
-                                dir_sign.getFont(), dir_sign.getNumero_gamme())-gamme_actuelle/2.0;
+                                dir_sign.getFont(), dir_sign.getNumero_gamme(), true)-gamme_actuelle/2.0;
 
-                sign_e.appendChild(
-                        renderText(decalage,
-                                dir_sign.getLargeur_listel() + gamme_actuelle/2.0*(j) + gamme_actuelle*j-1,
-                                dir_sign.getNumero_gamme(), digit_string, dir_sign.getFont(),
-                                DirectionalSign.getSecondColor(dir_sign.getColor())
-                        )
-                );
+                if (dir_sign.getSignSymbol().type != SignSymbol.SignSymbolType.NONE && dir_sign.getMentions().size() == 1) {
+                    sign_e.appendChild(
+                            renderText(decalage,
+                                    dir_sign.getLargeur_listel() + gamme_actuelle*2,
+                                    dir_sign.getNumero_gamme(), digit_string, font,
+                                    DirectionalSign.getSecondColor(dir_sign.getColor()),
+                                    true)
+                    );
+                } else {
+                    sign_e.appendChild(
+                            renderText(decalage,
+                                    dir_sign.getLargeur_listel() + gamme_actuelle/2.0*(j+1) + gamme_actuelle*(j+1),
+                                    dir_sign.getNumero_gamme(), digit_string, font,
+                                    DirectionalSign.getSecondColor(dir_sign.getColor()),
+                                    true)
+                    );
+                }
+
+
             }
         }
+
         return sign_e;
     }
 
@@ -321,104 +353,110 @@ public class Renderer extends JPanel implements SignListener {
         if (dir_sign.getFont() == Font.SignFont.L2serre)
             gamme_actuelle = DirectionalSign.gammes[dir_sign.getNumero_gamme() + 1];
         else gamme_actuelle = DirectionalSign.gammes[dir_sign.getNumero_gamme()];
-        // ideogramme si utilisé
-        if (dir_sign.getSignIdeogram().type != SignIdeogram.SignIdeogramType.NONE) {
-            sign_e.appendChild(renderEmplacementIdeogeogram(dir_sign));
-        }
         // symbole si utilisé
         if (dir_sign.getSignSymbol().type == SignSymbol.SignSymbolType.INDICATION) {
-            double longueur_texte = 0;
+            /*double longueur_texte = 0;
             for (int i = 0; i < dir_sign.getText().length; i++) {
                 double longueur_ligne = Font.getTextLength(dir_sign.getText()[i],
                         dir_sign.getFont(), dir_sign.getNumero_gamme());
                 if (longueur_ligne > longueur_texte) longueur_texte = longueur_ligne;
-            }
+            }*/
             double x = dir_sign.getLongueur() - dir_sign.getLargeur_listel()
-                    - dir_sign.getSignSymbol().getSize(gamme_actuelle) - 0.5*gamme_actuelle;
-            double y = dir_sign.getHauteur()/2.0 - dir_sign.getSignSymbol().getSize(gamme_actuelle)/2.0;
+                    - SignSymbol.getSize(gamme_actuelle) - 0.5*gamme_actuelle;
+            double y = dir_sign.getHauteur()/2.0 - SignSymbol.getSize(gamme_actuelle)/2.0;
             //carré blanc
             sign_e.appendChild(renderRectangle(x, y,
-                    dir_sign.getSignSymbol().getSize(gamme_actuelle),
-                    dir_sign.getSignSymbol().getSize(gamme_actuelle),
+                    SignSymbol.getSize(gamme_actuelle),
+                    SignSymbol.getSize(gamme_actuelle),
                     DirectionalSign.DirectionalSignColor.WHITE));
             //carré bleu
             x += 0.06*gamme_actuelle;
             y += 0.06*gamme_actuelle;
 
             sign_e.appendChild(renderRectangle(x, y,
-                    dir_sign.getSignSymbol().getBlueSquareSize(gamme_actuelle),
-                    dir_sign.getSignSymbol().getBlueSquareSize(gamme_actuelle),
+                    SignSymbol.getBlueSquareSize(gamme_actuelle),
+                    SignSymbol.getBlueSquareSize(gamme_actuelle),
                     DirectionalSign.DirectionalSignColor.BLUE));
         } else
         if (dir_sign.getSignSymbol().type == SignSymbol.SignSymbolType.INTERDICTION) {
             double longueur_texte = 0;
-            for (int i = 0; i < dir_sign.getText().length; i++) {
-                double longueur_ligne = Font.getTextLength(dir_sign.getText()[i],
-                        dir_sign.getFont(), dir_sign.getNumero_gamme());
+            for (int i = 0; i < dir_sign.getMentions().size(); i++) {
+                double longueur_ligne = Font.getTextLength(dir_sign.getMentions().get(i).nom,
+                        dir_sign.getFont(), dir_sign.getNumero_gamme(), true);
                 if (longueur_ligne > longueur_texte) longueur_texte = longueur_ligne;
             }
             double x = dir_sign.getLongueur() - dir_sign.getLargeur_listel()
-                    - dir_sign.getSignSymbol().getSize(gamme_actuelle) - 0.5*gamme_actuelle;
+                    - SignSymbol.getSize(gamme_actuelle) - 0.5*gamme_actuelle;
             double y = dir_sign.getHauteur()/2.0;
             //rond bord blanc
             sign_e.appendChild(renderCircle(x +
-                            dir_sign.getSignSymbol().getSize(gamme_actuelle)/2.0,
+                            SignSymbol.getSize(gamme_actuelle)/2.0,
                     y,
-                    dir_sign.getSignSymbol().getSize(gamme_actuelle)/2.0,
+                    SignSymbol.getSize(gamme_actuelle)/2.0,
                     DirectionalSign.DirectionalSignColor.WHITE));
             //rond rouge
             x += 0.06*gamme_actuelle;
             sign_e.appendChild(renderCircle(x +
-                            dir_sign.getSignSymbol().getRedCircleSize(gamme_actuelle)/2.0,
+                            SignSymbol.getRedCircleSize(gamme_actuelle)/2.0,
                     y,
-                    dir_sign.getSignSymbol().getRedCircleSize(gamme_actuelle)/2.0,
+                    SignSymbol.getRedCircleSize(gamme_actuelle)/2.0,
                     DirectionalSign.DirectionalSignColor.RED));
             //rond blanc interieur
             x += 0.25*gamme_actuelle;
             sign_e.appendChild(renderCircle(x +
-                            dir_sign.getSignSymbol().getWhiteInnerCircleSize(gamme_actuelle)/2.0,
+                            SignSymbol.getWhiteInnerCircleSize(gamme_actuelle)/2.0,
                     y,
-                    dir_sign.getSignSymbol().getWhiteInnerCircleSize(gamme_actuelle)/2.0,
+                    SignSymbol.getWhiteInnerCircleSize(gamme_actuelle)/2.0,
                     DirectionalSign.DirectionalSignColor.WHITE));
         }
 
-        // texte
+        // texte et idéogramme par mention
         double decalage;
-        for (int j = 1; j < dir_sign.getLineNumber()+1; j++) {
-            decalage = dir_sign.getLongueur() - dir_sign.getLargeur_listel() - gamme_actuelle/2.0 -
-                    Font.getTextLength(dir_sign.getText()[j-1],
-                            dir_sign.getFont(), dir_sign.getNumero_gamme());
-            if (dir_sign.getSignSymbol().type != SignSymbol.SignSymbolType.NONE)
-                decalage -= 3.5 * gamme_actuelle;
-            //nom
-            if (dir_sign.getSignSymbol().type != SignSymbol.SignSymbolType.NONE && dir_sign.getLineNumber() == 1) {
-                sign_e.appendChild( renderText(decalage,  dir_sign.getLargeur_listel() + gamme_actuelle*2,
-                    gamme_actuelle, dir_sign.getText()[j-1], dir_sign.getFont(),
-                    DirectionalSign.getSecondColor(dir_sign.getColor())));
-            }
-            else {
-                sign_e.appendChild( renderText(decalage,  dir_sign.getLargeur_listel() + gamme_actuelle/2.0*(j) + gamme_actuelle*j-1,
-                    dir_sign.getNumero_gamme(), dir_sign.getText()[j-1], dir_sign.getFont(),
-                    DirectionalSign.getSecondColor(dir_sign.getColor())));
-            }
-
-            // distance
-            if (dir_sign.isWith_distance()) {
-                decalage = dir_sign.getLongueur_pointe_fleche() + gamme_actuelle/2.0;
-                String digit_string;
-                if (dir_sign.getDistances_directions()[j-1] ==
-                        (int) dir_sign.getDistances_directions()[j-1] ) digit_string =
-                        String.valueOf((int) dir_sign.getDistances_directions()[j-1]);
-                else digit_string = String.valueOf(dir_sign.getDistances_directions()[j-1]);
-
-                sign_e.appendChild( renderText(decalage,
-                        dir_sign.getLargeur_listel() + gamme_actuelle/2.0*(j) + gamme_actuelle*j-1,
-                        dir_sign.getNumero_gamme(), digit_string, dir_sign.getFont(),
-                        DirectionalSign.getSecondColor(dir_sign.getColor())
-                        )
+        for (int j = 0; j < dir_sign.getMentions().size(); j++) {
+                //rendu par mention
+                Font.SignFont font =
+                        dir_sign.getMentions().get(j).font == Font.SignFont.L4serre ?
+                        Font.SignFont.L4serre : dir_sign.getFont();
+                //calcul du décalage
+                decalage = dir_sign.getLongueur() - dir_sign.getLargeur_listel() - gamme_actuelle/2.0 -
+                        Font.getTextLength(dir_sign.getMentions().get(j).toString(), font, dir_sign.getNumero_gamme(), true);
+                if (dir_sign.getMentions().get(j).ideogram.type != SignIdeogram.SignIdeogramType.NONE)
+                    decalage += SignIdeogram.getSize(dir_sign.getHauteur_composition()) + gamme_actuelle/2.0;
+                if (dir_sign.getSignSymbol().type != SignSymbol.SignSymbolType.NONE)
+                    decalage += SignSymbol.getSize(dir_sign.getHauteur_composition()) + gamme_actuelle/2.0;
+                //nom
+                if (dir_sign.getSignSymbol().type != SignSymbol.SignSymbolType.NONE && dir_sign.getLineNumber() == 1)
+                    sign_e.appendChild( renderText(decalage,  dir_sign.getLargeur_listel() + gamme_actuelle*2,
+                            dir_sign.getNumero_gamme()*(j-1), dir_sign.getMentions().get(j).toString(), font,
+                            DirectionalSign.getSecondColor(dir_sign.getColor()), true));
+                else sign_e.appendChild( renderText(decalage,  dir_sign.getLargeur_listel() + gamme_actuelle/2.0*(j+1)
+                                + gamme_actuelle*(j+1), dir_sign.getNumero_gamme(), dir_sign.getMentions().get(j).toString(),
+                        font, DirectionalSign.getSecondColor(dir_sign.getColor()), true)
                 );
+                //ideogramme
+                if (dir_sign.isWith_ideogram()) {
+                    sign_e.appendChild( renderEmplacementIdeogeogram(dir_sign));
+                }
+                // distance
+                if (dir_sign.isWith_distance()) {
+                    String digit_string;
+                    if (dir_sign.getMentions().get(j).distance ==
+                            (int) dir_sign.getMentions().get(j).distance ) digit_string =
+                            String.valueOf((int) dir_sign.getMentions().get(j).distance);
+                    else digit_string = String.valueOf(dir_sign.getMentions().get(j).distance);
+
+                    decalage = dir_sign.getLongueur_pointe_fleche() + 0.5*gamme_actuelle;
+
+                    sign_e.appendChild(
+                            renderText(decalage,
+                                    dir_sign.getLargeur_listel() + gamme_actuelle/2.0*(j+1) + gamme_actuelle*(j+1),
+                                    dir_sign.getNumero_gamme(), digit_string, font,
+                                    DirectionalSign.getSecondColor(dir_sign.getColor()),
+                                    true)
+                    );
+                }
             }
-        }
+
         return sign_e;
     }
 
@@ -445,12 +483,13 @@ public class Renderer extends JPanel implements SignListener {
     }
 
     public Element renderText(double x, double y, int numeroGamme, String text, Font.SignFont font,
-                              DirectionalSign.DirectionalSignColor color) {
+                              DirectionalSign.DirectionalSignColor color, boolean L2grand) {
         Element textElement = svg_document.createElementNS(svgNS, "g");
         double decalage = x;
 
         int gamme_actuelle;
-        if (font == Font.SignFont.L2serre)
+        if (L2grand && (font == Font.SignFont.L2serre ||
+                (font == Font.SignFont.L4serre && color == DirectionalSign.DirectionalSignColor.WHITE)))
             gamme_actuelle = DirectionalSign.gammes[numeroGamme + 1];
         else gamme_actuelle = DirectionalSign.gammes[numeroGamme];
 
@@ -481,27 +520,38 @@ public class Renderer extends JPanel implements SignListener {
         pointe_groupe.appendChild(pointe_de_fleche);
         pointe_groupe.appendChild(pointe_fond);
 
+        boolean new_angle = false;
+
+        double angle_pointe = 75;
+        double angle_fond = new_angle ? 100 : 85;
+
+        double angle_interieur = angle_fond/2; // angle entre horizontal et pente
+        double angle_exterieur = angle_pointe/2;
+
+        double angle_interieur_vert = 90 - angle_interieur;
+        double angle_exterieur_vert = 90 - angle_exterieur;
+
         double fond_pointe_x;
         if (dir_sign.getSignSymbol().type != SignSymbol.SignSymbolType.NONE && dir_sign.getLineNumber() == 1)
-            fond_pointe_x = Math.tan(Math.toRadians(40))*dir_sign.getHauteur_composition()*1.5;
-        else fond_pointe_x = Math.tan(Math.toRadians(40))*dir_sign.getHauteur_composition()*dir_sign.getLineNumber();
+            fond_pointe_x = Math.tan(Math.toRadians(angle_interieur_vert))*dir_sign.getHauteur_composition()*1.5;
+        else fond_pointe_x = Math.tan(Math.toRadians(angle_interieur_vert))*dir_sign.getHauteur_composition()*dir_sign.getLineNumber();
 
-        double longueur_pointe_virtuelle = Math.tan(Math.toRadians(52.5))*(dir_sign.getHauteur()/2);
+        double longueur_pointe_virtuelle = Math.tan(Math.toRadians(angle_exterieur_vert))*(dir_sign.getHauteur()/2);
         double longueur_pointe_fond_pointe_listel_x = Math.tan(Math.toRadians(42.5))*longueur_pointe_virtuelle - fond_pointe_x;
         double rayon_arrondi_pointe = longueur_pointe_fond_pointe_listel_x *
-                Math.sin(Math.toRadians(92.5)) / Math.sin(Math.toRadians(50+92.5));
+                Math.sin(Math.toRadians(92.5)) / Math.sin(Math.toRadians(angle_interieur+92.5));
 
         double point_rayon_arrondi_pointe_x;
-        double point_rayon_arrondi_pointe_y = Math.cos(Math.toRadians(50)) * rayon_arrondi_pointe*0.5;
+        double point_rayon_arrondi_pointe_y = Math.cos(Math.toRadians(angle_interieur_vert)) * rayon_arrondi_pointe*0.5;
 
         switch (dir_sign.getLineNumber()) {
-            case 1 -> point_rayon_arrondi_pointe_x = Math.cos(Math.toRadians(50)) * rayon_arrondi_pointe * 0.5;
+            case 1 -> point_rayon_arrondi_pointe_x = Math.cos(Math.toRadians(angle_interieur_vert)) * rayon_arrondi_pointe * 1.0;
             case 2 -> {
-                point_rayon_arrondi_pointe_x = Math.cos(Math.toRadians(50)) * rayon_arrondi_pointe * 1;
+                point_rayon_arrondi_pointe_x = Math.cos(Math.toRadians(angle_interieur_vert)) * rayon_arrondi_pointe * 1;
                 longueur_pointe_virtuelle *= 1.1;
             }
             case 3 -> {
-                point_rayon_arrondi_pointe_x = Math.cos(Math.toRadians(50)) * rayon_arrondi_pointe * 1.2;
+                point_rayon_arrondi_pointe_x = Math.cos(Math.toRadians(angle_interieur_vert)) * rayon_arrondi_pointe * 1.2;
                 longueur_pointe_virtuelle *= 1.1;
             }
             case 4 -> throw new NotImplementedException("4ème ligne non implémentée");
@@ -596,6 +646,64 @@ public class Renderer extends JPanel implements SignListener {
         return pointe_groupe;
     }
 
+    public Element renderCartouche(Cartouche cartouche, DirectionalSignGroup dir_sign_grp) {
+        cartouche.computeLengths();
+
+        Element cartouche_groupe = svg_document.createElementNS(svgNS,"g");
+        Element bord_haut = renderRectangle(cartouche.getLargeurListel()*1.5, 0,
+                cartouche.getLongueur()-3*cartouche.getLargeurListel(), cartouche.getLargeurListel()*1.5,
+                Cartouche.getColor(cartouche.getType()));
+        Element bord_droit = renderRectangle(cartouche.getLongueur()-cartouche.getLargeurListel()*1.5,
+                cartouche.getLargeurListel()*1.5, cartouche.getLargeurListel()*1.5,
+                cartouche.getHauteur()-3*cartouche.getLargeurListel(),Cartouche.getColor(cartouche.getType()));
+        Element bord_bas = renderRectangle(cartouche.getLargeurListel()*1.5,
+                cartouche.getHauteur()-cartouche.getLargeurListel()*1.5,
+                cartouche.getLongueur()-3*cartouche.getLargeurListel(),
+                cartouche.getLargeurListel()*1.5, Cartouche.getColor(cartouche.getType()));
+        Element bord_gauche = renderRectangle(0, cartouche.getLargeurListel()*1.5,
+                cartouche.getLargeurListel()*1.5,cartouche.getHauteur()-3*cartouche.getLargeurListel(),
+                Cartouche.getColor(cartouche.getType()));
+
+        Element rond_haut_gauche = renderCircle(cartouche.getLargeurListel()*1.5,
+                cartouche.getLargeurListel()*1.5, cartouche.getLargeurListel()*1.5,
+                Cartouche.getColor(cartouche.getType()));
+        Element rond_haut_droit = renderCircle(cartouche.getLongueur()-cartouche.getLargeurListel()*1.5,
+                cartouche.getLargeurListel()*1.5, cartouche.getLargeurListel()*1.5,
+                Cartouche.getColor(cartouche.getType()));
+        Element rond_bas_gauche = renderCircle(cartouche.getLargeurListel()*1.5,
+                cartouche.getHauteur()-cartouche.getLargeurListel()*1.5, cartouche.getLargeurListel()*1.5,
+                Cartouche.getColor(cartouche.getType()));
+        Element rond_bas_droit = renderCircle(cartouche.getLongueur()-cartouche.getLargeurListel()*1.5,
+                cartouche.getHauteur()-cartouche.getLargeurListel()*1.5, cartouche.getLargeurListel()*1.5,
+                Cartouche.getColor(cartouche.getType()));
+
+        Element fond = renderRectangle(cartouche.getLargeurListel(), cartouche.getLargeurListel(),
+                cartouche.getLongueur()-cartouche.getLargeurListel()*2,
+                cartouche.getHauteur()-cartouche.getLargeurListel()*2,Cartouche.getColor(cartouche.getType()));
+
+        DirectionalSign.DirectionalSignColor fontColor = DirectionalSign.getSecondColor(Cartouche.getColor(cartouche.getType()));
+        Font.SignFont font = fontColor == DirectionalSign.DirectionalSignColor.WHITE
+                ? Font.SignFont.L2serre : Font.SignFont.L1serre;
+
+        int Hc = DirectionalSign.gammes[dir_sign_grp.getSign(0).getNumero_gamme()];
+
+        Element texte = renderText(cartouche.getLargeurListel()+0.25*Hc, cartouche.getHauteur()-cartouche.getLargeurListel()-0.25*Hc,
+                dir_sign_grp.getSign(0).getNumero_gamme(), cartouche.toString(), font, fontColor, false);
+
+        cartouche_groupe.appendChild(bord_haut);
+        cartouche_groupe.appendChild(bord_droit);
+        cartouche_groupe.appendChild(bord_bas);
+        cartouche_groupe.appendChild(bord_gauche);
+        cartouche_groupe.appendChild(rond_haut_gauche);
+        cartouche_groupe.appendChild(rond_haut_droit);
+        cartouche_groupe.appendChild(rond_bas_droit);
+        cartouche_groupe.appendChild(rond_bas_gauche);
+        cartouche_groupe.appendChild(fond);
+        cartouche_groupe.appendChild(texte);
+
+        return cartouche_groupe;
+    }
+
     public Element renderEmplacementIdeogeogram(DirectionalSign dir_sign) {
         Element ideo_empl_e = svg_document.createElementNS(svgNS, "g");
         int gamme_actuelle = DirectionalSign.gammes[dir_sign.getNumero_gamme()];
@@ -603,15 +711,15 @@ public class Renderer extends JPanel implements SignListener {
         // tour noir
         ideo_empl_e.appendChild(renderRectangle(z+0.30*gamme_actuelle,
                 z + 0.05*gamme_actuelle,
-                dir_sign.getSignIdeogram().getColoredBorderSize(gamme_actuelle),
-                dir_sign.getSignIdeogram().getColoredBorderSize(gamme_actuelle),
+                SignIdeogram.getColoredBorderSize(gamme_actuelle),
+                SignIdeogram.getColoredBorderSize(gamme_actuelle),
                 DirectionalSign.getSecondColor(dir_sign.getColor())));
         // fond blanc
         z += 0.1*gamme_actuelle;
         ideo_empl_e.appendChild(renderRectangle(z+0.30*gamme_actuelle,
                 z + 0.05*gamme_actuelle,
-                dir_sign.getSignIdeogram().getInternalSize(gamme_actuelle),
-                dir_sign.getSignIdeogram().getInternalSize(gamme_actuelle),
+                SignIdeogram.getInternalSize(gamme_actuelle),
+                SignIdeogram.getInternalSize(gamme_actuelle),
                 dir_sign.getColor()));
         return ideo_empl_e;
     }
@@ -619,37 +727,35 @@ public class Renderer extends JPanel implements SignListener {
     @Override
     public void signSet(Sign sign, boolean firstRender) throws NotImplementedException {
         //setSign(sign);
-        //renderedSign = false;
-        /*if (firstRender) {*/
-            svgCanvas.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
-                @Override
-                public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
-                    if (svgCanvas.getUpdateManager() != null)
-                        svgCanvas.getUpdateManager().getUpdateRunnableQueue().invokeLater(() -> {
-                            if (!renderedSign) {
-                                try {
-                                    render(sign);
-                                } catch (SignException ex) {
-                                    ex.printStackTrace();
-                                }
-                                renderedSign = true;
-                            } else {
-                                AffineTransform af = new AffineTransform();
-                                af.scale(0.25, 0.25);
-                                af.translate(50, 50);
-
-                                svgCanvas.setRenderingTransform(af);
-                                revalidate();
+        renderedSign = false;
+        svgCanvas.addGVTTreeRendererListener(new GVTTreeRendererAdapter() {
+            @Override
+            public void gvtRenderingCompleted(GVTTreeRendererEvent e) {
+                if (svgCanvas.getUpdateManager() != null)
+                    svgCanvas.getUpdateManager().getUpdateRunnableQueue().invokeLater(() -> {
+                        if (!renderedSign) {
+                            try {
+                                render(sign);
+                            } catch (SignException ex) {
+                                ex.printStackTrace();
                             }
-                        });
-                }
+                            renderedSign = true;
+                        } else {
+                            AffineTransform af = new AffineTransform();
+                            af.scale(0.25, 0.25);
+                            af.translate(50, 50);
 
-                @Override
-                public void gvtRenderingFailed(GVTTreeRendererEvent e) {
-                    JOptionPane.showMessageDialog(mainFrame, "échec de rendu");
-                }
-            });
-        //}
+                            svgCanvas.setRenderingTransform(af);
+                            revalidate();
+                        }
+                    });
+            }
+
+            @Override
+            public void gvtRenderingFailed(GVTTreeRendererEvent e) {
+                JOptionPane.showMessageDialog(mainFrame, "échec de rendu");
+            }
+        });
         try {
             render(sign);
         } catch (SignException e) {

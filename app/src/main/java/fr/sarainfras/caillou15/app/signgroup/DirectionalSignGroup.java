@@ -7,8 +7,7 @@ import java.util.ArrayList;
 public class DirectionalSignGroup {
     ArrayList<DirectionalSign> directionalSignArrayList;
 
-    Cartouche cartouche_1;
-    Cartouche cartouche_2;
+    ArrayList<Cartouche> cartoucheArrayList;
 
     boolean alignement_panneaux = false;
 
@@ -17,6 +16,7 @@ public class DirectionalSignGroup {
 
     public DirectionalSignGroup() {
         directionalSignArrayList = new ArrayList<>();
+        cartoucheArrayList = new ArrayList<>();
     }
 
     public void addSign(DirectionalSign dir_sign) {
@@ -39,6 +39,8 @@ public class DirectionalSignGroup {
     public ArrayList<DirectionalSign> getSignList() {
         return directionalSignArrayList;
     }
+
+    public ArrayList<Cartouche> getCartoucheList() {return cartoucheArrayList;}
 
     /**
      * déplace le panneau spécifié dans la position originale vers la position de destination spécifiée
@@ -80,7 +82,14 @@ public class DirectionalSignGroup {
         // new_hauteur
         for (int i = 0; i < directionalSignArrayList.size(); i++) {
             new_hauteur += directionalSignArrayList.get(i).getHauteur();
-            if (i < directionalSignArrayList.size())
+            if (i < directionalSignArrayList.size() && directionalSignArrayList.size() > 1)
+                new_hauteur += getEspaceEntrePanneauMemeDirection(
+                        DirectionalSign.gammes[directionalSignArrayList.get(0).getNumero_gamme()]);
+        }
+
+        for (int i = 0; i < cartoucheArrayList.size();i++) {
+            new_hauteur += cartoucheArrayList.get(i).getHauteur();
+            if (i < cartoucheArrayList.size() && cartoucheArrayList.size() > 0)
                 new_hauteur += getEspaceEntrePanneauMemeDirection(
                         DirectionalSign.gammes[directionalSignArrayList.get(0).getNumero_gamme()]);
         }

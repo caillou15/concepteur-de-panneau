@@ -14,6 +14,7 @@ public class SignEditorDialog extends JDialog {
                             SignGroupChangeInitiater signGroupChangeInitiater) {
         super(frame, true);
         this.setMinimumSize(new Dimension(500, 400));
+        this.setTitle("Editeur de panneau");
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(new SignUI(frame, dir_sign, false));
@@ -25,6 +26,5 @@ public class SignEditorDialog extends JDialog {
         panel.add(bouton_envoyer);
         this.add(panel);
     }
-
 
 }
