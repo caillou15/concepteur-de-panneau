@@ -8,11 +8,11 @@ public class SignIdeogram {
         type = SignIdeogramType.NONE;
     }
 
-    public static double getSize(int hc) { return 1.5*hc; }
+    public static double getSize(double hc) { return 1.5*hc; }
 
-    public static double getColoredBorderSize(int hc) { return 1.4*hc; }
+    public static double getColoredBorderSize(double hc) { return 1.4*hc; }
 
-    public static double getInternalSize(int hc) { return 1.2*hc; }
+    public static double getInternalSize(double hc) { return 1.2*hc; }
 
     public enum SignIdeogramType {
         NONE, SOMETHING

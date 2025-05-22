@@ -210,7 +210,7 @@ public class Renderer extends JPanel implements SignListener {
         sign_e.appendChild(texte);
         sign_e.appendChild(pointe_de_fleche);
 
-        int gamme_actuelle = (dir_sign.getFont() == Font.SignFont.L2serre)
+        double gamme_actuelle = (dir_sign.getFont() == Font.SignFont.L2serre)
                 ?DirectionalSign.gammes[dir_sign.getNumero_gamme() + 1]
                 :DirectionalSign.gammes[dir_sign.getNumero_gamme()];
         // ideogramme si utilisé - @TODO à supprimer (aussi dans renderLeft)
@@ -349,7 +349,7 @@ public class Renderer extends JPanel implements SignListener {
         sign_e.appendChild(texte);
         sign_e.appendChild(pointe_de_fleche);
 
-        int gamme_actuelle;
+        double gamme_actuelle;
         if (dir_sign.getFont() == Font.SignFont.L2serre)
             gamme_actuelle = DirectionalSign.gammes[dir_sign.getNumero_gamme() + 1];
         else gamme_actuelle = DirectionalSign.gammes[dir_sign.getNumero_gamme()];
@@ -487,28 +487,63 @@ public class Renderer extends JPanel implements SignListener {
         Element textElement = svg_document.createElementNS(svgNS, "g");
         double decalage = x;
 
-        int gamme_actuelle;
-        if (L2grand && (font == Font.SignFont.L2serre ||
-                (font == Font.SignFont.L4serre && color == DirectionalSign.DirectionalSignColor.WHITE)))
-            gamme_actuelle = DirectionalSign.gammes[numeroGamme + 1];
-        else gamme_actuelle = DirectionalSign.gammes[numeroGamme];
-
+        boolean exposant = false;
+        boolean indice = false;
         for (int i = 0; i < text.length(); i++) {
-            Element lettre = getSvg_document().createElementNS(svgNS, "text");
-            textElement.appendChild(lettre);
-            lettre.setAttributeNS(null, "style", "font-size:" + gamme_actuelle
-                    + "pt;font-family:Caracteres " + font.name() + ";fill:" +
-                    DirectionalSign.getColorHex(color));
-            lettre.setAttributeNS(null, "x", String.valueOf(decalage));
-            lettre.setAttributeNS(null, "y", String.valueOf(y));
+            //détermination si exposant ou indice
+            char lettre_char = text.charAt(i);
+            if (lettre_char == '^') {
+                exposant = !exposant;
+            } else if (lettre_char == '_') {
+                indice = !indice;
+            } else {
+                if (indice && i < text.length()-1 && text.charAt(i/*+1*/) == '_') {
+                    indice = !indice;
+                }
+                int numeroGammeLocal = numeroGamme;
+                if (exposant) {
+                    numeroGammeLocal -= 2;
+                } else if (indice) {
+                    numeroGammeLocal -= 2;
+                }
 
-            lettre.setTextContent(String.valueOf(text.charAt(i)));
-            if (i < text.length() - 1) {
+                double gamme_actuelle;
+                if (L2grand && (font == Font.SignFont.L2serre ||
+                        (font == Font.SignFont.L4serre && color == DirectionalSign.DirectionalSignColor.WHITE)))
+                    gamme_actuelle = DirectionalSign.gammes[numeroGammeLocal + 1];
+                else gamme_actuelle = DirectionalSign.gammes[numeroGammeLocal];
 
-                decalage += Font.getGapLengthBetweenLetter(text.charAt(i),
-                        text.charAt(i+1), font, numeroGamme)
-                        + Font.getLetterLength(text.charAt(i), font, gamme_actuelle);
+
+
+                Element lettre = getSvg_document().createElementNS(svgNS, "text");
+                textElement.appendChild(lettre);
+                lettre.setAttributeNS(null, "style", "font-size:" + gamme_actuelle
+                        + "pt;font-family:Caracteres " + font.name() + ";fill:" +
+                        DirectionalSign.getColorHex(color));
+                lettre.setAttributeNS(null, "x", String.valueOf(decalage));
+
+                if (exposant) {
+                    double y_decalage = y - DirectionalSign.gammes[numeroGamme] + gamme_actuelle;
+                    lettre.setAttributeNS(null, "y", String.valueOf(y_decalage));
+                } else lettre.setAttributeNS(null, "y", String.valueOf(y));
+
+                lettre.setTextContent(String.valueOf(lettre_char));
+                if (i < text.length() - 1) {
+                    if (text.charAt(i+1)=='^' && !exposant) {
+                        double gamme_expo = DirectionalSign.gammes[numeroGammeLocal-2];
+                        decalage += Font.getGapLengthBetweenLetter(text.charAt(i),
+                                text.charAt(i+1), font, numeroGammeLocal)
+                                + Font.getLetterLength(text.charAt(i), font, gamme_expo);
+                    } else {
+                        decalage += Font.getGapLengthBetweenLetter(text.charAt(i),
+                                text.charAt(i+1), font, numeroGammeLocal)
+                                + Font.getLetterLength(text.charAt(i), font, gamme_actuelle);
+                    }
+
+                }
             }
+
+
         }
         return textElement;
     }
@@ -685,7 +720,7 @@ public class Renderer extends JPanel implements SignListener {
         Font.SignFont font = fontColor == DirectionalSign.DirectionalSignColor.WHITE
                 ? Font.SignFont.L2serre : Font.SignFont.L1serre;
 
-        int Hc = DirectionalSign.gammes[dir_sign_grp.getSign(0).getNumero_gamme()];
+        double Hc = DirectionalSign.gammes[dir_sign_grp.getSign(0).getNumero_gamme()];
 
         Element texte = renderText(cartouche.getLargeurListel()+0.25*Hc, cartouche.getHauteur()-cartouche.getLargeurListel()-0.25*Hc,
                 dir_sign_grp.getSign(0).getNumero_gamme(), cartouche.toString(), font, fontColor, false);
@@ -706,7 +741,7 @@ public class Renderer extends JPanel implements SignListener {
 
     public Element renderEmplacementIdeogeogram(DirectionalSign dir_sign) {
         Element ideo_empl_e = svg_document.createElementNS(svgNS, "g");
-        int gamme_actuelle = DirectionalSign.gammes[dir_sign.getNumero_gamme()];
+        double gamme_actuelle = DirectionalSign.gammes[dir_sign.getNumero_gamme()];
         double z = dir_sign.getLargeur_listel() + 0.25*gamme_actuelle;
         // tour noir
         ideo_empl_e.appendChild(renderRectangle(z+0.30*gamme_actuelle,

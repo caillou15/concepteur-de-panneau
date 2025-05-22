@@ -6,10 +6,7 @@ import fr.sarainfras.caillou15.app.events.sign.SignInitiater;
 import org.apache.commons.lang3.NotImplementedException;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
-import java.awt.event.*;
 import java.util.*;
 
 import static fr.sarainfras.caillou15.app.sign.Font.SignFont.*;
@@ -19,20 +16,21 @@ public class DirectionalSign extends Sign {
     private ArrayList<Mention> mentions;
     private Font.SignFont font = L1serre;
     private int lineNumber = 1;
-    private int numero_gamme = 0;
+    private int numero_gamme = 2;
     boolean with_symbol = false;
     private DirectionalSignDirection signDirection;
     private double longueur_supplementaire = 0;
     private boolean with_distance = false;
     private boolean with_ideogram = false;
     private SignSymbol signSymbol;
+    //private boolean withLineBreaks = false;
 
-    public static final int[] gammes = {100, 125, 160, 200};
+    public static final double[] gammes = {50, 62.5, 100, 125, 160, 200};
 
     private boolean computed = false;
 
-    int hauteur_base = 100;
-    private int hauteur_composition = 0;
+    double hauteur_base = 100;
+    private double hauteur_composition = 0;
 
     private double longueur = 0;
     private double longueur_pointe_fleche = 0;
@@ -95,9 +93,7 @@ public class DirectionalSign extends Sign {
                 signInitiater.signSet(this_sign, false);
             }
         });
-        if (!new_sign) {
-            color_jComboBox.setSelectedItem(this.color.name());
-        }
+        if (!new_sign) color_jComboBox.setSelectedItem(this.color.name());
         // direction du panneau
         String[] signDirectionArray = Utils.getNames(DirectionalSignDirection.class);
         signDirectionArray = Utils.addElementAtFirstinStringArray(signDirectionArray);
@@ -109,9 +105,7 @@ public class DirectionalSign extends Sign {
                 signInitiater.signSet(this_sign, false);
             }
         });
-        if (!new_sign) {
-            direction_jComboBox.setSelectedItem(this.signDirection.name());
-        }
+        if (!new_sign) direction_jComboBox.setSelectedItem(this.signDirection.name());
         // longueur supplementaire
         JSpinner long_supp_spinner = new JSpinner(new SpinnerNumberModel());
         long_supp_spinner.addChangeListener(e -> {
@@ -119,9 +113,7 @@ public class DirectionalSign extends Sign {
             this_sign.setLongueur_supplementaire(spinnerModel.getNumber().doubleValue());
             signInitiater.signSet(this_sign, false);
         });
-        if (!new_sign) {
-            long_supp_spinner.setValue(this.longueur_supplementaire);
-        }
+        if (!new_sign) long_supp_spinner.setValue(this.longueur_supplementaire);
         // activation distances
         JCheckBox distances_checkBox = new JCheckBox();
         distances_checkBox.addItemListener(e -> {
@@ -130,9 +122,17 @@ public class DirectionalSign extends Sign {
                 distances_checkBox.setSelected(this.with_distance);
             signInitiater.signSet(this_sign, false);
         });
-        if (!new_sign) {
-            distances_checkBox.setSelected(this.with_distance);
-        }
+        if (!new_sign) distances_checkBox.setSelected(this.with_distance);
+        // activation retour à la ligne
+        //JCheckBox linebreak_checkbox = new JCheckBox();
+        /*linebreak_checkbox.addItemListener(e -> {
+            this_sign.setWithLineBreaks(!this.isWithLineBreaks());
+            if (linebreak_checkbox.isSelected()) {
+                
+            }
+            signInitiater.signSet(this_sign, false);
+        });*/
+        //if (!new_sign) linebreak_checkbox.setSelected(this.isWithLineBreaks());
         // symbole
         String[] signSymbolArray = Utils.getNames(SignSymbol.SignSymbolType.class);
         JComboBox<String> symbol_jComboBox = new JComboBox<>(signSymbolArray);
@@ -274,7 +274,7 @@ public class DirectionalSign extends Sign {
         return lineNumber;
     }
 
-    public int getHauteur_composition() {
+    public double getHauteur_composition() {
         return hauteur_composition;
     }
 
@@ -367,6 +367,14 @@ public class DirectionalSign extends Sign {
         this.with_ideogram = with_ideogram;
     }
 
+    /*public boolean isWithLineBreaks() {
+        return withLineBreaks;
+    }
+
+    public void setWithLineBreaks(boolean withLineBreaks) {
+        this.withLineBreaks = withLineBreaks;
+    }*/
+
     public enum DirectionalSignColor {
         WHITE, GREEN, BLUE, YELLOW, BROWN, BLACK, RED
     }
@@ -391,7 +399,7 @@ public class DirectionalSign extends Sign {
         int hash = 0;
 
         hash += font.hashCode();
-        hash += longueur_supplementaire;
+        hash += (int) longueur_supplementaire;
         hash += numero_gamme;
         hash += signDirection.hashCode();
         hash += signSymbol.hashCode();

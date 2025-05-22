@@ -98,7 +98,7 @@ public class DirectionalSignGroup {
         this.hauteur = new_hauteur;
     }
 
-    public double getEspaceEntrePanneauMemeDirection(int Hb) { return Hb/4.0; }
+    public double getEspaceEntrePanneauMemeDirection(double Hb) { return Hb/4.0; }
 
     public double getEspaceEntrePanneauDirectionOpposee(int Hb) { return Hb/2.0; }
 

@@ -4,47 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c805d9d-adce-4492-a068-1cf1049ca128" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/Mention.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/MentionEditorDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/MentionUI.java" afterDir="false" />
+    <list default="true" id="4c805d9d-adce-4492-a068-1cf1049ca128" name="Changes" comment="version 2.1&#10;- ajout des cartouches&#10;- amélioration de l'interface&#10;- nettoyage du code&#10;- amélioration du rendu">
+      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/generateur_panneaux_v2-0-1.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/generateur_panneaux_v2-0.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/generateur_panneaux_v2-1.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/lib/Squiggle.icns" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/representations.aird" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uml.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ConcepteurDePanneau.buildSrc.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ConcepteurDePanneau.buildSrc.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ConcepteurDePanneau.buildSrc.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ConcepteurDePanneau.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/ConcepteurDePanneau.app.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/ConcepteurDePanneau.app.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/ConcepteurDePanneau.app.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/utilities/ConcepteurDePanneau.utilities.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/utilities/ConcepteurDePanneau.utilities.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/utilities/ConcepteurDePanneau.utilities.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/changelog.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/output.svg" beforeDir="false" afterPath="$PROJECT_DIR$/app/output.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/AppWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/AppWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/DirectionalSignRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/DirectionalSignRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/Renderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/DirectionalSign.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/DirectionalSign.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/Font.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/Font.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/Sign.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/Sign.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignIdeogram.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignIdeogram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignPropertyPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignPropertyPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/sign/SignUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/Cartouche.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/Cartouche.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/DirectionalSignGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/DirectionalSignGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/DirectionalSignGroupRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/DirectionalSignGroupRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/SignEditorDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/SignEditorDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/SignGroupPropertyPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/signgroup/SignGroupPropertyPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appoutput.svg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +74,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;caillou15&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/caillou15/concepteur-de-panneau.git&quot;,
+    &quot;accountId&quot;: &quot;10a967e4-4f92-47ac-b520-903926d5ff7a&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -116,13 +109,15 @@
     &quot;Gradle.ConcepteurDePanneau [shadowJar].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/ConcepteurDePanneau&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RunManager" selected="Gradle.ConcepteurDePanneau [customFatJar]">
@@ -175,7 +170,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -214,6 +209,12 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Gradle.ConcepteurDePanneau [createExe]" />
+      <item itemvalue="Gradle.ConcepteurDePanneau [customFatJar]" />
+      <item itemvalue="Gradle.ConcepteurDePanneau [run]" />
+      <item itemvalue="Gradle.ConcepteurDePanneau [shadowJar]" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ConcepteurDePanneau [customFatJar]" />
@@ -222,14 +223,6 @@
         <item itemvalue="Gradle.ConcepteurDePanneau [createExe]" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-16.0.2-temurin-16.0.2-4caba194b151-16a4f233" />
-        <option value="jdk-17.0.10-temurin-17.0.10-3183f394aec4-87f3d08d" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -240,10 +233,63 @@
       <option name="presentableId" value="Default" />
       <updated>1724940193226</updated>
     </task>
+    <task id="LOCAL-00001" summary="version 2.1&#10;- ajout des cartouches&#10;- amélioration de l'interface&#10;- nettoyage du code&#10;- amélioration du rendu">
+      <option name="closed" value="true" />
+      <created>1725125451956</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1725125451956</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="version 2.1&#10;- ajout des cartouches&#10;- amélioration de l'interface&#10;- nettoyage du code&#10;- amélioration du rendu" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 2.1&#10;- ajout des cartouches&#10;- amélioration de l'interface&#10;- nettoyage du code&#10;- amélioration du rendu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/fr/sarainfras/caillou15/app/render/Renderer.java</url>
+          <line>684</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint enabled="true" type="java-exception">
           <properties>

@@ -37,9 +37,9 @@ public class AppWindow extends JFrame {
             e.printStackTrace();
         }
         signInitiater = new SignInitiater();
-        if (!(Arrays.stream(GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()).anyMatch(font -> font.getName().equals("Caracteres L1 sserre"))
-        || Arrays.stream(GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()).anyMatch(font -> font.getName().equals("Caracteres L2"))
-        || Arrays.stream(GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()).anyMatch(font -> font.getName().equals("Caracteres L4"))
+        if (!(Arrays.stream(GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()).anyMatch(font -> font.getName().equals("Caracteres L1serre"))
+        || Arrays.stream(GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()).anyMatch(font -> font.getName().equals("Caracteres L2serre"))
+        || Arrays.stream(GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()).anyMatch(font -> font.getName().equals("Caracteres L4serre"))
         )) {
             JOptionPane.showMessageDialog(this, "les polices L1, L2 et/ou L4 nécessaires ne sont pas disponibles");
             return;
@@ -67,7 +67,9 @@ public class AppWindow extends JFrame {
         JMenuItem menu_item_nouveau_groupe = new JMenuItem("Nouveau groupe de panneaux");
         menu_item_nouveau_groupe.addActionListener(e -> new_sign_group());
         menu_fichier.add(menu_item_nouveau_groupe);
-        menu_fichier.add(new JMenuItem("Ouvrir..."));
+        JMenuItem ouvrirJMenuItem = new JMenuItem("Ouvrir");
+        menu_fichier.add(ouvrirJMenuItem);
+        ouvrirJMenuItem.setEnabled(false);
         JMenuItem menu_item_enregistrer = new JMenuItem("Enregistrer en SVG");
         menu_item_enregistrer.addActionListener(e -> {
             if (getEditorUI().getSvgDocument() == null) {
@@ -96,12 +98,16 @@ public class AppWindow extends JFrame {
         // edition
 
         JMenu menu_edition = new JMenu("Edition");
-        menu_edition.add(new JMenuItem("Paramètres"));
+        JMenuItem parametreJMenuItem = new JMenuItem("Paramètres");
+        menu_edition.add(parametreJMenuItem);
+        parametreJMenuItem.setEnabled(false);
 
         // aide
 
         JMenu menu_aide = new JMenu("Aide");
-        menu_aide.add(new JMenuItem("Aide"));
+        JMenuItem aideJMenuItem = new JMenuItem("Aide");
+        menu_aide.add(aideJMenuItem);
+        aideJMenuItem.setEnabled(false);
         JMenuItem aboutMenuItem = new JMenuItem("A propos de...");
         aboutMenuItem.addActionListener(e -> JOptionPane.showMessageDialog(
                 this, "Version : " + Constants.getVersionString()));
