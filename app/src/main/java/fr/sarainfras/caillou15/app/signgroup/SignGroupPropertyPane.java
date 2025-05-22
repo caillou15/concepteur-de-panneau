@@ -194,7 +194,8 @@ public class SignGroupPropertyPane extends JPanel implements SignGroupChangeList
                 return;
             }
             cartoucheRefArrayList.add("D 1");
-            Cartouche cartouche = new Cartouche(Cartouche.CartoucheType.D, 1);
+            Cartouche cartouche = new Cartouche(Cartouche.CartoucheType.D, 1,
+                    directionalSignGroup.getSign(0).getNumero_gamme());
             cartouche.computeLengths();
             directionalSignGroup.cartoucheArrayList.add(cartouche);
             update_cartouche_list();

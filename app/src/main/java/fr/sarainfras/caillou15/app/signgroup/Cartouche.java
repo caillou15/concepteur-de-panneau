@@ -5,7 +5,7 @@ import fr.sarainfras.caillou15.app.sign.Font;
 
 public class Cartouche {
 
-    // @TODO faire le rendu des cartouches
+    // @TODO transformer lenumro en texte pour gérer les annexes A, BIS, etc...
 
     protected int numero;
     protected CartoucheType type;
@@ -68,7 +68,8 @@ public class Cartouche {
             case D, C, R, P -> Font.SignFont.L1serre;
         };
 
-        longueur = 0.5*DirectionalSign.gammes[numeroGamme] + Font.getTextLength(this.toString(), font, numeroGamme, false) + 2*largeurListel;
+        longueur = 0.5*DirectionalSign.gammes[numeroGamme] +
+                Font.getTextLength(this.toString(), font, numeroGamme, false) + 2*largeurListel;
         hauteur = 1.5*DirectionalSign.gammes[numeroGamme] + 2*largeurListel;
         computed = true;
     }
